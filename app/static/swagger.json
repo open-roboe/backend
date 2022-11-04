@@ -1,0 +1,895 @@
+openapi: 3.0.3
+info:
+  title: Roboa - Regatta backend service - OpenAPI 3.0
+  description: |-
+    This is the regatta-roboa Server based on the OpenAPI 3.0 specification.  You can find out more about
+    roboa at [https:roboa.it] (https://www.roboa.it). 
+    
+
+    
+    Some useful links:
+    - [GeasNbc Roboa regatta](https://roboa.it/regattas)
+   
+  termsOfService: http://roboa.it/terms/
+  contact:
+    email: andrea.dabroi@gmail.com
+  license:
+    name: GeasNBC Vela Colico
+    url: http://ronoa.it/LICENSE-1.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Roboa
+  url: http://127.0.0.1:5000
+servers:
+- url: http://127.0.0.1:5000
+tags:
+- name: event
+  description: Everything about your Events
+  externalDocs:
+    description: Find out more
+    url: http://www.roboa.it
+- name: user
+  description: Operations about user
+- name: layout
+  description: Template layout
+- name: rights
+  description: grant rights to user for an event
+paths:
+  
+  /layout:
+    get:
+      tags:
+      - layout
+      summary: retrieve all layouts
+      description: retrieve available layouts
+      operationId: get_layout
+      
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layout'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Layout'
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.layout_controller
+    post:
+      tags:
+      - layout
+      summary: Add a new layout
+      description: Add a new event
+      operationId: add_layout
+      requestBody:
+        description: Create a new layout
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Layout'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Layout'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Layout'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layout'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Layout'
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.layout_controller
+
+  /layout/{layoutId}:
+    get:
+      tags:
+      - layout
+      summary: get layout by ID
+      description: Returns a single layout
+      operationId: get_layout_by_id
+      parameters:
+      - name: layoutId
+        in: path
+        description: ID of layout to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Event not found
+      security:
+      - api_key: []
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+    post:
+      tags:
+      - layout
+      summary: Updates a layout with form data
+      description: ""
+      operationId: update_event_with_form
+      parameters:
+      - name: layoutId
+        in: path
+        description: ID of layout that needs to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: query
+        description: Name of layout that needs to be updated
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: description of layout that needs to be updated
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+    delete:
+      tags:
+      - layout
+      summary: Deletes a layout
+      description: delete a layout
+      operationId: delete_layout
+      parameters:
+      - name: layoutId
+        in: path
+        description: layout id to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid event value
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+  /event:
+    put:
+      tags:
+      - event
+      summary: Update an existing event
+      description: Update an existing event by Id
+      operationId: update_event
+      requestBody:
+        description: Update an existent event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Event not found
+        "405":
+          description: Validation exception
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+    post:
+      tags:
+      - event
+      summary: Add a new event
+      description: Add a new event
+      operationId: add_event
+      requestBody:
+        description: Create a new event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+  /event/findByStatus:
+    get:
+      tags:
+      - event
+      summary: Finds Events by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: find_events_by_status
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - created
+          - ready
+          - finished
+          default: created
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        "400":
+          description: Invalid status value
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+  /event/{eventId}:
+    get:
+      tags:
+      - event
+      summary: Find event by ID
+      description: Returns a single event
+      operationId: get_event_by_id
+      parameters:
+      - name: eventId
+        in: path
+        description: ID of event to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Event not found
+      security:
+      - api_key: []
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+    post:
+      tags:
+      - event
+      summary: Updates a event with form data
+      description: ""
+      operationId: update_event_with_form
+      parameters:
+      - name: eventId
+        in: path
+        description: ID of event that needs to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: query
+        description: Name of event that needs to be updated
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Status of event that needs to be updated
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+    delete:
+      tags:
+      - event
+      summary: Deletes a event
+      description: delete a event
+      operationId: delete_event
+      parameters:
+      - name: api_key
+        in: header
+        description: ""
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: eventId
+        in: path
+        description: Event id to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid event value
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+  /roboa/inventory:
+    get:
+      tags:
+      - roboa
+      summary: Returns active roboa list 
+      description: Returns a map of roboa status
+      operationId: get_inventory
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+                x-content-type: application/json
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.roboa_controller
+  /roboa/{roboaId}:
+    get:
+      tags:
+      - roboa
+      summary: Find roboa info by ID
+      description: Returns a single roboa info
+      operationId: get_roboa_by_id
+      parameters:
+      - name: roboaId
+        in: path
+        description: ID of roboa to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: the boa id
+                  boainfo:
+                    type: string
+                    description: The boa info.       
+              application/xml:
+                schema:
+                  $ref: '#/components/schemas/Event'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Event not found
+      security:
+      - api_key: []
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.roboa_controller
+    post:
+      tags:
+      - event
+      summary: Updates a event with form data
+      description: ""
+      operationId: update_roboa_with_form
+      parameters:
+      - name: roboaId
+        in: path
+        description: ID of boa that needs to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: query
+        description: Name of event that needs to be updated
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "405":
+          description: Invalid input
+      security:
+      - eventstore_auth:
+        - write:events
+        - read:events
+      x-openapi-router-controller: swagger_server.controllers.event_controller
+  /user:
+    post:
+      tags:
+      - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: create_user
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/createWithList:
+    post:
+      tags:
+      - user
+      summary: Creates list of users with given input array
+      description: Creates list of users with given input array
+      operationId: create_users_with_list_input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/login:
+    get:
+      tags:
+      - user
+      summary: Logs user into the system
+      description: ""
+      operationId: login_user
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              style: simple
+              explode: false
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+                x-content-type: application/xml
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/logout:
+    get:
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logout_user
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/{username}:
+    get:
+      tags:
+      - user
+      summary: Get user by user name
+      description: ""
+      operationId: get_user_by_name
+      parameters:
+      - name: username
+        in: path
+        description: 'The name that needs to be fetched. Use user1 for testing. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    put:
+      tags:
+      - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: update_user
+      parameters:
+      - name: username
+        in: path
+        description: name that need to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Update an existent user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: delete_user
+      parameters:
+      - name: username
+        in: path
+        description: The name that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+components:
+  schemas:
+    Layout:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: bastone
+        description:
+          type: string
+          example: una boa di bolina, uno stacchetto, una boa di start
+        parameters:
+          type: string
+          example: B1100B2200
+      example:
+        name: bastone
+        description: una boa di bolina, uno stacchetto, una boa di start
+        id: 1
+        parameters: B1100B2200
+      xml:
+        name: layout
+    Rights:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        user:
+          $ref: '#/components/schemas/User'
+        event:
+          $ref: '#/components/schemas/Event'
+        allowed:
+          type: string
+          enum:
+          - none
+          - read
+          - readwrite
+          default: none
+      xml:
+        name: rights
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: andrea.dabroi@gmail.com
+        password:
+          type: string
+          example: "12345"
+        userStatus:
+          type: integer
+          description: User Status
+          format: int32
+          example: 1
+      example:
+        password: "12345"
+        userStatus: 1
+        id: 10
+        email: andrea.dabroi@gmail.com
+        username: theUser
+      xml:
+        name: user
+    Event:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: GEASCUP1
+        place:
+          type: string
+          example: Colico
+        parameters:
+          type: string
+        roboe:
+          type: string
+        layout:
+          $ref: '#/components/schemas/Layout'
+        status:
+          type: string
+          description: event status
+          enum:
+          - created
+          - ready
+          - finished
+      example:
+        layout:
+          name:  st1
+          description: stacchetto una boa poi un ancora
+          id: 1
+          parameters: B1100B2200
+        roboe: roboe
+        name: GEASCUP1
+        id: 10
+        place: Colico
+        parameters: parameters
+        status: created
+      xml:
+        name: event
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+  requestBodies:
+    Event:
+      description: Event object that needs to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Event'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Event'
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+  securitySchemes:
+    eventstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://eventstore3.swagger.io/oauth/authorize
+          scopes:
+            write:events: modify events in your account
+            read:events: read your events
+      x-tokenInfoFunc: swagger_server.controllers.authorization_controller.check_eventstore_auth
+      x-scopeValidateFunc: swagger_server.controllers.authorization_controller.validate_scope_eventstore_auth
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+
