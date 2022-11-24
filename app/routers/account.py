@@ -11,13 +11,13 @@ from app.models.api import User
 router = APIRouter(prefix='/api/account', tags=['account'])
 
 
-@router.get("/")
+@router.get("/", response_model=User)
 async def get_logged_user(current_user: User = Depends(get_current_user)):
     return current_user
 
 
-@router.post("/")
-async def create_user(current_user: User = Depends(get_current_admin_user)):
+@router.post("/", response_model=User)
+async def create_user(new_user: User, current_user: User = Depends(get_current_admin_user)):
     #TODO: receive new user data, create user in db
     return current_user
 

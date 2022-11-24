@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field, constr
 
 class User(BaseModel):
     username: str
-    admin: bool
-    disabled: bool
+    admin: bool = True
+    disabled: bool = False
     hashed_password: str
 
 
