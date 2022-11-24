@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+htmlcov/
+test.py
+app/test.py
+app/scanner/test.py
+app/scanner/nse/*

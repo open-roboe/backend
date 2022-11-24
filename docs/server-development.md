@@ -1,0 +1,116 @@
+# Server development
+
+You will only need basic knowledge of python.
+
+The code runs with docker-compose, but knowledge of this technology is not required.
+
+These instructions are valid for windows or linux environments.
+
+## Set up your local development environment
+
+> This documentation assumes that you already have git installed on your device,
+> configured with your github credentials
+
+1) ### Install the required software
+
+   Install the following software, if you don't have it already
+
+   - docker [Download docker desktop](https://docs.docker.com/get-docker/)
+
+2) ### clone the repository
+
+   Execute the command `git clone https://github.com/open-roboe/backend.git`.
+
+   A `/backend` folder will be generated. 
+   Execute the command `cd /backend` to navigate into it
+   
+
+3) ### Initialize the environment variables
+
+   Execute the command `cp .env.example .env` to copy the content of the `.env.example` file into a new `.env` file
+
+
+## Development
+
+Make sure that your terminal is always in the `/backend` folder, where the
+docker-compose.yml file is located.
+If you are using windows, make also sure the docker desktop app is running
+
+- ### start docker-compose
+
+  With your terminal, execute the command `docker-compose up -d` to start the app.
+  The first time this command may require a couple of minutes.
+
+  When completed, the API server will be available at http://localhost:8080, and
+  the interactive documentation will be available at http://localhost:8080/docs.
+  You can read more about it on the [fastapi documentation](https://fastapi.tiangolo.com/features/#automatic-docs)
+
+  A web interface for MongoDB will be available at http://localhost:8081
+
+  while the docker-compose app is running, you can apply any change you want to
+  the code in `/backend/app`. The web apis will reload in real time with your changes
+
+- ### stop docker compose
+
+  `docker-compose down`
+
+-  ### view python logs
+
+   `docker logs -f hscanner_scanner_1`
+
+- ### run tests
+
+  `docker exec -it hscanner_scanner_1 python -m pytest`
+
+Other advanced commands are listed [here](./advanced-docker.md)
+
+## Push changes to github
+
+This section is still a work in progress.
+
+If you want to learn git, check out these resources:
+
+- get-git [en](https://get-git.readthedocs.io/en/latest/) [it](https://get-git.readthedocs.io/it/latest/)
+
+## understand the codebase
+
+Knowing the basics of python module imports and python type hints will help you
+understand the codebase. If you are not familiar with those topics
+check out these 2 minutes explanations
+
+- [Python type hints](https://fastapi.tiangolo.com/python-types/)
+- [Python modules](./python-modules.md)
+
+The web APIs are written using the FastAPI library, which has a great documentation.
+you can read it [here](https://fastapi.tiangolo.com/)
+
+The app uses the MongoDB database. You can read its documentation [here](https://www.mongodb.com/docs/),
+but all you need to get started with it is [this](https://www.mongodb.com/docs/manual/core/databases-and-collections/) 2 minutes introduction
+
+This is a bird-eye overview of the codebase
+
+        app/                All the python code
+        ├─ main.py          The starting point of the application,
+        |                     where FastAPI is initialized
+        ├─ database.py      The MongoDB database object
+        └─ models/          Pydantic models
+        |  ├─ api.py        Pydantic models that define the FastAPI endpoints
+        |  └─ database.py   Pydantic models that define the schema of all the
+        |                     MongoDB collections
+        └─ routers/         All the FastAPI endpoints, divided into separate 
+        |  |                  routes according to their functionality
+        |  ├─ account.py    /api/account/ endpoints
+        |  ├─ scanner.py    /api/scanner/ endpoints
+        |  ├─ target.py     /api/target/ endpoints
+        |  └─ websocket.py  Websocket manager that can be used to send data
+        |                     in real-time to connected web clients
+        └─ test/            All the app tests, written with pytest and 
+        |  |                  organized in a file structure that mirrors the
+        |  |                  rest of the codebase
+        |  └─ conftest.py  Configuration file for pytest, and fixtures 
+
+
+
+-----------------------------------------------
+
+TODO: the rest of this documentation

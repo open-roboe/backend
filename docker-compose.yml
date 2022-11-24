@@ -1,0 +1,38 @@
+# This is the compose file for the development of the scanner.
+version: "3.9"
+services:
+  #FastAPI Service & scanner library.
+  #With the PRoduction Docker-compose, Fastapi also serves the web client.
+  #This is the development Docker-compose so no web client is served
+  scanner:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.dev
+    volumes:
+      - ./app:/code/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    environment:
+      #database configuration
+      MONGO_HOST: mongo
+      MONGO_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_DB_NAME: ${MONGO_DB_NAME}
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    #No port is exposed by default. Use mongo express at localhost:8081
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+    volumes:
+      - scannerdb:/data/db
+
+# Volumes
+volumes:
+  scannerdb:
