@@ -12,7 +12,21 @@ config = {
   'database': os.environ['MONGO_DB_NAME']
 }
 
-db = { }
+# fake db
+db = {
+    "bob": {
+        "username": "bob",
+        "hashed_password": "password",
+        "disabled": False,
+        "admin": False
+    },
+    "alice": {
+        "username": "alice",
+        "hashed_password": "password",
+        "disabled": True,
+        "admin": True
+    },
+}
 
 def get_db():
   """Return the MongoDb Scanner database

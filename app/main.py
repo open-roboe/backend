@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Depends, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.logger import logger
-# import here other routes
-from .routers import account, course, websocket
+from .routers import account, course, websocket # import here other routes
 
 
 description="""
@@ -19,6 +18,7 @@ app = FastAPI(
       "url": "https://github.com/open-roboe"
     },
 )
+
 
 # During development, the webserver runs on a separate origin
 # therefore a CORS configuration on the api server is required.

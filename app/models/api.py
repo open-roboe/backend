@@ -2,6 +2,13 @@ from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field, constr
 
 
+class User(BaseModel):
+    username: str
+    admin: bool
+    disabled: bool
+    hashed_password: str
+
+
 class WsAPIError(BaseModel):
   success = False
   error: str
