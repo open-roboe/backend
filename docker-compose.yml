@@ -12,8 +12,8 @@ services:
       - ./app:/code/app
     ports:
       - 8080:8080
-    depends_on:
-      - mongo
+    # depends_on:
+    #   - mongo
     restart: unless-stopped
     environment:
       #database configuration
@@ -22,17 +22,17 @@ services:
       MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
       MONGO_DB_NAME: ${MONGO_DB_NAME}
 
-  mongo:
-    image: mongo
-    restart: unless-stopped
-    #No port is exposed by default. Use mongo express at localhost:8081
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
-    volumes:
-      - scannerdb:/data/db
+#   mongo:
+#     image: mongo
+#     restart: unless-stopped
+#     #No port is exposed by default. Use mongo express at localhost:8081
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+#       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+#       MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+#     volumes:
+#       - scannerdb:/data/db
 
-# Volumes
-volumes:
-  scannerdb:
+# # Volumes
+# volumes:
+#   scannerdb:
