@@ -1,15 +1,11 @@
-# This is the compose file for the development of the roboe backend.
+# This is the compose file for the production roboe backend
 version: "3.9"
 services:
-  #FastAPI server
-  #Note: With the production Docker-compose, Fastapi also serves the web client.
-  #This is the development Docker-compose so no web client is served
+  #FastAPI Server
   server:
     build:
       context: ./
-      dockerfile: docker/Dockerfile.dev
-    volumes:
-      - ./app:/code/app
+      dockerfile: docker/Dockerfile.prod
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -19,3 +15,4 @@ services:
       MONGO_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
       MONGO_DB_NAME: ${MONGO_DB_NAME}
+
