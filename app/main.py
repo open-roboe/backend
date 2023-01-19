@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.logger import logger
-from .routers import account, course, websocket # import here other routes
+from .routers import account, course, polling, websocket # import here other routes
 
 
 description="""
@@ -41,4 +41,5 @@ app.add_middleware(
 app.include_router(account.router)
 app.include_router(course.router)
 app.include_router(websocket.router)
+app.include_router(polling.router)
 # activate here other imported routes
