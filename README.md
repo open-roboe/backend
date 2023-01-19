@@ -1,14 +1,7 @@
-# roboapp - backend for regatta and roboboa control
+# Roboe backend
 
+This is the backend for the open-roboe project, connecting the android app with the roboe.
 
-run with:
-    python boagram
-or 
-    flask run
-    
-API documentation at 127.0.0.1:5000/swagger
+## development
 
-
-set up flask, directories and api layout;
-model for regatta layouts only
-
+Check out the [development guide](./docs/development.md) to start contributing to the project
