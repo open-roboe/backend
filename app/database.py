@@ -1,16 +1,13 @@
 from fastapi.logger import logger
 import os
-import secrets
+from sqlmodel import Field, SQLModel, create_engine
 
-# configuration used to connect to MongoDB
-# TODO: replace with real db
 config = {
-  'host': os.environ['MONGO_HOST'],
-  'port': 27017,
-  'user': os.environ['MONGO_USERNAME'],
-  'password': os.environ['MONGO_PASSWORD'],
-  'database': os.environ['MONGO_DB_NAME']
+  'sqlite_file': os.environ['SQLITE_FILE']
 }
+
+sqlite_url = f"sqlite:///{config['sqlite_file']}"
+engine = create_engine(sqlite_url, echo=True)
 
 # fake db
 db = {

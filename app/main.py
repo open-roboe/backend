@@ -1,7 +1,12 @@
 from fastapi import FastAPI, Depends, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.logger import logger
-from .routers import account, course, polling, websocket # import here other routes
+
+from sqlmodel import SQLModel
+from .models import database #importing the database models allow SQLModel to automatically generate the database
+from .database import engine
+
+from .routers import account, course, polling # import here other routes
 
 
 description="""
@@ -19,6 +24,10 @@ app = FastAPI(
     },
 )
 
+#TODO: replace with real migration system
+@app.on_event("startup")
+def on_startup():
+    SQLModel.metadata.create_all(engine)
 
 # During development, the webserver runs on a separate origin
 # therefore a CORS configuration on the api server is required.
@@ -40,6 +49,5 @@ app.add_middleware(
 
 app.include_router(account.router)
 app.include_router(course.router)
-app.include_router(websocket.router)
 app.include_router(polling.router)
 # activate here other imported routes
