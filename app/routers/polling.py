@@ -2,11 +2,10 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.logger import logger
 from app.database import get_db
-from app.models.api import PollData
 from sqlmodel import Field, Session, select
 
 from app.database import engine
-from ..models import database #"from app.models import database" is better, but not recognized by my linter lol
+from ..models import database, api #"from app.models import database" is better, but not recognized by my linter lol
 
 router = APIRouter(prefix='/api/polling', tags=['polling'])
 
@@ -24,13 +23,23 @@ async def testget():
         users = session.exec(select(database.User)).all()
         return users
 
+@router.post("/roboa")
+async def poll_roboa_update(roboaData: api.PollRoboaUpdate):
+    return "ok"
 
+@router.post("/user", response_model=api.PollResponse)
+async def poll_user_update(userData: api.PollUserUpdate):
+  return {
+          "courses": [],
+          "users": [],
+          "roboas": []
+  }
 
-@router.get("/", response_model=PollData)
+@router.get("/", response_model=api.PollResponse)
 async def poll():
   return {
           "courses": [],
-          "boats": [],
+          "users": [],
           "roboas": []
   }
 
