@@ -39,8 +39,8 @@ class RoboaUpdate(BaseModel):
 # polling 
 class PollResponse(BaseModel):
     courses: List[database.Course]
-    users: List[UserGet]
-    roboas: List[RoboaGet]
+    users: List[UserResponse]
+    roboas: List[RoboaResponse]
 
 
 class PollUserUpdate(BaseModel):

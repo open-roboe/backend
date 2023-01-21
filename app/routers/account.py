@@ -54,9 +54,6 @@ async def register(form_data: api.UserCreate):
 """
 Oauth authentication endpoint
 """
-"""
-Oauth authentication endpoint
-"""
 @router.post("/auth")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     jwt = test_credentials(form_data.username, form_data.password)
