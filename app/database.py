@@ -6,7 +6,7 @@ config = {
   'sqlite_file': os.environ['SQLITE_FILE']
 }
 
-sqlite_url = f"sqlite:///{config['sqlite_file']}"
+sqlite_url = f"sqlite:///testdb.db"
 engine = create_engine(sqlite_url, echo=True)
 
 # fake db
