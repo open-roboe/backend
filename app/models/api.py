@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional, Any
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, Field
 
 from . import database
 
