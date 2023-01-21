@@ -4,7 +4,7 @@ from jose import JWTError, jwt
 from fastapi.logger import logger
 from argon2 import PasswordHasher
 from sqlmodel import Field, Session, select
-import time
+import time, os
 from datetime import datetime, timedelta
 from typing import Union
 from .database import engine
@@ -13,10 +13,9 @@ from .models import api, database #same as from app.models
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/account/auth")
 # openssl rand -hex 32
-# TODO: Env variable
-SECRET_KEY = "274563133ba6dcf8944e59c4a1b502ac78a042d2119eb4c8d3ec1fefe71d69bd"
+SECRET_KEY = os.environ['SECRET_KEY']
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_DAYS = 365
 
 def verify_password(hashed_password: str, plain_password: str) -> bool:
     ph = PasswordHasher()
@@ -50,7 +49,7 @@ def test_credentials(username: str, password: str):
     # prepare response data
     responseJSON = {"username": user.username}
     return create_access_token(
-        responseJSON, timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        responseJSON, timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     )
 
 
@@ -103,13 +102,6 @@ def decode_token(token) -> str:
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> database.User:
     username = decode_token(token)
     user = get_user(username)
-    # Todo: this block is never called, fix
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
     return user
 
 

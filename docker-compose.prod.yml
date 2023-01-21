@@ -10,7 +10,7 @@ services:
       - 8080:8080
     restart: unless-stopped
     environment:
-      #database configuration
+      #server configuration
       SQLITE_FILE: database.db
-      SECRET: ${SECRET}
+      SECRET_KEY: ${SECRET_KEY}
 
