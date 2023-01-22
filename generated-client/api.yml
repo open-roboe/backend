@@ -1,0 +1,514 @@
+---
+openapi: 3.0.2
+info:
+  title: roboe backend
+  description: |2
+
+    ### backend server for the roboapp, connecting roboe with the android clients
+  contact:
+    name: ''
+    url: https://github.com/open-roboe
+  version: 0.0.1
+paths:
+  "/api/account/":
+    get:
+      tags:
+      - account
+      summary: Get Logged User
+      description: Returns account info, requires authentication
+      operationId: get_logged_user_api_account__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserResponse"
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/account/admin":
+    get:
+      tags:
+      - account
+      summary: Get Logged Admin User
+      description: |-
+        Returns account info, requires authentication in an admin account.
+        Used to test if the current account is admin
+      operationId: get_logged_admin_user_api_account_admin_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserResponse"
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/account/super_admin":
+    get:
+      tags:
+      - account
+      summary: Get Logged Super Admin User
+      description: |-
+        Returns account info, requires authentication in a super admin account.
+        Used to test if the current account is super admin
+      operationId: get_logged_super_admin_user_api_account_super_admin_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserResponse"
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/account/register":
+    post:
+      tags:
+      - account
+      summary: Register
+      description: |-
+        TODO: require super admin permissions
+
+        Register a new user. Requires authentication in a super admin account
+      operationId: register_api_account_register_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserCreate"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/api/account/auth":
+    post:
+      tags:
+      - account
+      summary: Login
+      operationId: login_api_account_auth_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              "$ref": "#/components/schemas/Body_login_api_account_auth_post"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/api/course/":
+    get:
+      tags:
+      - course
+      summary: Get All Courses
+      description: get all courses
+      operationId: get_all_courses_api_course__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get All Courses Api Course  Get
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Course"
+      security:
+      - OAuth2PasswordBearer: []
+    post:
+      tags:
+      - course
+      summary: Add Course
+      description: Add a course
+      operationId: add_course_api_course__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Course"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Course"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/course/marker":
+    put:
+      tags:
+      - course
+      summary: Update Marker
+      description: update a marker
+      operationId: update_marker_api_course_marker_put
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+    post:
+      tags:
+      - course
+      summary: Create Marker
+      description: |-
+        create a new marker for the specified course
+        ideas: uuid, lat, lon, color
+      operationId: create_marker_api_course_marker_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+    delete:
+      tags:
+      - course
+      summary: Delete Marker
+      description: delete a marker
+      operationId: delete_marker_api_course_marker_delete
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/course/marker/assign_roboa":
+    post:
+      tags:
+      - course
+      summary: Marker Assign Roboa
+      description: assign specified roboa to specified marker
+      operationId: marker_assign_roboa_api_course_marker_assign_roboa_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/course/join_course":
+    post:
+      tags:
+      - course
+      summary: Join Course
+      description: assign current logged user to specified course
+      operationId: join_course_api_course_join_course_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/polling/roboa":
+    post:
+      tags:
+      - polling
+      summary: Poll Roboa Update
+      description: Polling endpoint, called repeatedly by an authenticated roboa to
+        send its metrics, and receive back commands
+      operationId: poll_roboa_update_api_polling_roboa_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PollRoboaUpdate"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/api/polling/user":
+    post:
+      tags:
+      - polling
+      summary: Poll User Update
+      description: |-
+        Polling endpoint, called repeatedly by an authenticated user to send its metrics
+        and get data updates
+      operationId: poll_user_update_api_polling_user_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PollUserUpdate"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PollResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - OAuth2PasswordBearer: []
+  "/api/polling/":
+    get:
+      tags:
+      - polling
+      summary: Poll
+      description: |-
+        Polling endpoint, called repeatedly by an authenticated user to get data updates.
+        This endpoint does not update user metrics
+      operationId: poll_api_polling__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PollResponse"
+      security:
+      - OAuth2PasswordBearer: []
+components:
+  schemas:
+    Body_login_api_account_auth_post:
+      title: Body_login_api_account_auth_post
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        grant_type:
+          title: Grant Type
+          pattern: password
+          type: string
+        username:
+          title: Username
+          type: string
+        password:
+          title: Password
+          type: string
+        scope:
+          title: Scope
+          type: string
+          default: ''
+        client_id:
+          title: Client Id
+          type: string
+        client_secret:
+          title: Client Secret
+          type: string
+    Course:
+      title: Course
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        data:
+          title: Data
+          type: string
+          default: ''
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            "$ref": "#/components/schemas/ValidationError"
+    PollResponse:
+      title: PollResponse
+      required:
+      - courses
+      - users
+      - roboas
+      type: object
+      properties:
+        courses:
+          title: Courses
+          type: array
+          items:
+            "$ref": "#/components/schemas/Course"
+        users:
+          title: Users
+          type: array
+          items:
+            "$ref": "#/components/schemas/UserResponse"
+        roboas:
+          title: Roboas
+          type: array
+          items:
+            "$ref": "#/components/schemas/RoboaResponse"
+    PollRoboaUpdate:
+      title: PollRoboaUpdate
+      required:
+      - lat
+      - lon
+      type: object
+      properties:
+        lat:
+          title: Lat
+          type: number
+        lon:
+          title: Lon
+          type: number
+    PollUserUpdate:
+      title: PollUserUpdate
+      required:
+      - lat
+      - lon
+      type: object
+      properties:
+        lat:
+          title: Lat
+          type: number
+        lon:
+          title: Lon
+          type: number
+    RoboaResponse:
+      title: RoboaResponse
+      required:
+      - name
+      - last_update
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        last_update:
+          title: Last Update
+          type: integer
+        lat:
+          title: Lat
+          type: number
+          default: 0
+        lon:
+          title: Lon
+          type: number
+          default: 0
+        course_id:
+          title: Course Id
+          type: string
+    UserCreate:
+      title: UserCreate
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        username:
+          title: Username
+          type: string
+        password:
+          title: Password
+          type: string
+        admin:
+          title: Admin
+          type: boolean
+          default: false
+        super_admin:
+          title: Super Admin
+          type: boolean
+          default: false
+    UserResponse:
+      title: UserResponse
+      required:
+      - username
+      - last_update
+      type: object
+      properties:
+        username:
+          title: Username
+          type: string
+        admin:
+          title: Admin
+          type: boolean
+          default: true
+        super_admin:
+          title: Super Admin
+          type: boolean
+          default: false
+        last_update:
+          title: Last Update
+          type: integer
+        lat:
+          title: Lat
+          type: number
+          default: 0
+        lon:
+          title: Lon
+          type: number
+          default: 0
+        course_id:
+          title: Course Id
+          type: string
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            type: string
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+  securitySchemes:
+    OAuth2PasswordBearer:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: "/api/account/auth"
