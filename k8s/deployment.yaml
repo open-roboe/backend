@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboapp
+spec:
+  selector:
+    matchLabels:
+      app: roboapp
+  revisionHistoryLimit: 3
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: roboapp
+    spec:
+      containers:
+        - name: roboapp
+          image: ghcr.io/robalb/my-website:sha-c2248d73403238715084e2cb66b7f168cbf85d06
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
