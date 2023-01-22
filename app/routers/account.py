@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.logger import logger
-from app.database import get_db
 from app.auth import get_current_user, get_current_admin_user, get_current_super_admin_user, register_user, test_credentials
 from fastapi.security import OAuth2PasswordRequestForm
 

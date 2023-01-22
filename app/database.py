@@ -13,23 +13,3 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-# fake db
-db = {
-    "bob": {
-        "username": "bob",
-        "hashed_password": "password",
-        "disabled": False,
-        "admin": False
-    },
-    "alice": {
-        "username": "alice",
-        "hashed_password": "password",
-        "disabled": True,
-        "admin": True
-    },
-}
-
-def get_db():
-  """Return the MongoDb Scanner database
-  """
-  return db

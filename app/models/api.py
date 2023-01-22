@@ -50,4 +50,3 @@ class PollUserUpdate(BaseModel):
 class PollRoboaUpdate(BaseModel):
     lat: float
     lon: float
-

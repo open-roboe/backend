@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from fastapi.logger import logger
-from app.database import get_db
 from sqlmodel import Field, Session, select
 import time
 from app.database import engine
@@ -53,14 +52,9 @@ async def poll_user_update(new_data: api.PollUserUpdate, user: database.User = D
 @router.get("/", response_model=api.PollResponse)
 async def poll(*, user: database.User = Depends(get_current_user)):
     """
-    Polling endpoint, called repeatedly by an authenticated user to get data updates
+    Polling endpoint, called repeatedly by an authenticated user to get data updates.
+    This endpoint does not update user metrics
     """
-    #update user last_update
-    with Session(engine) as session:
-        user.last_update = int(time.time())
-        session.add(user)
-        session.commit()
-
     #read and return users, courses and roboas
     with Session(engine) as session:
         users = session.exec(select(database.User)).all()
