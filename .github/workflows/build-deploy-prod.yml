@@ -14,8 +14,6 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
