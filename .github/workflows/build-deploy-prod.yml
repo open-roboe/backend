@@ -23,11 +23,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          # These two options seems important for when an action needs to push commits back into
-          # the repo
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
