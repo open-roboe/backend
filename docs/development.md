@@ -13,4 +13,5 @@ Check out one of the following guides to get started
 - [web app development](./web-app-development.md)
 
 If you are interested in the android app development, check out the dedicated repository:
+
 https://github.com/open-roboe/roboapp-android

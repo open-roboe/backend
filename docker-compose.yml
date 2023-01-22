@@ -14,8 +14,6 @@ services:
       - 8080:8080
     restart: unless-stopped
     environment:
-      #database configuration
-      MONGO_HOST: mongo
-      MONGO_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_DB_NAME: ${MONGO_DB_NAME}
+      #server configuration
+      SQLITE_FILE: database.db
+      SECRET_KEY: ${SECRET_KEY}

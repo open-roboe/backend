@@ -1,64 +1,52 @@
 from typing import Dict, List, Optional, Any
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, Field
 
+from . import database
 
-#doto: move to db
-class User(BaseModel):
+class UserCreate(BaseModel):
     username: str
-    admin: bool = True
-    superAdmin: bool = False
-    disabled: bool = False
-    hashed_password: str
+    password: str
+    admin: bool = False
+    super_admin: bool = False
 
-#doto: move to db
-class Roboa(BaseModel):
-    name: str
-    hashed_token: str
+class UserResponse(database.UserBase):
+    pass
 
-#doto: move to db
-class Course(BaseModel):
-    id: str
-    name: str
-    data: str #technical data, such as wind, markers, etch.
-              #todo: define better, or keep as blob
-
-
-class LiveBoat(BaseModel): #una barca è una persona in realta
-    regataId: str
+class UserGet(BaseModel):
     username: str
-    lat: int
-    lon: int
-    time: int #unix timestamp of last update
 
+class UserUpdate(BaseModel):
+    lat: Optional[float] = 0
+    lon: Optional[float] = 0
+    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
 
-class LiveRoboa(BaseModel):
-    regataId: str
+class RoboaCreate(BaseModel):
     name: str
-    lat: int
-    lon: int
-    telemetry: str #todo: define better, or keep as blob
-    time: int #unix timestamp of last update
+    token: str
+
+class RoboaResponse(database.RoboaBase):
+    pass
+
+class RoboaGet(BaseModel):
+    name: str
+
+class RoboaUpdate(BaseModel):
+    lat: Optional[float] = 0
+    lon: Optional[float] = 0
+    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
 
 
-class PollData(BaseModel):
-    courses: list[Course]
-    boats: list[LiveBoat]
-    roboas: list[LiveRoboa]
-    
+# polling 
+class PollResponse(BaseModel):
+    courses: List[database.Course]
+    users: List[UserResponse]
+    roboas: List[RoboaResponse]
 
 
+class PollUserUpdate(BaseModel):
+    lat: float
+    lon: float
 
-
-
-class WsAPIError(BaseModel):
-  success = False
-  error: str
-  description: str = Field(description="Human readable error description")
-
-class WsApiResponse(BaseModel):
-  success = True
-  data: Dict = {}
-
-class WsAPIRequest(BaseModel):
-  command: str
-  data: Dict = {}
+class PollRoboaUpdate(BaseModel):
+    lat: float
+    lon: float

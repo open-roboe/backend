@@ -56,11 +56,11 @@ If you are using windows, make also sure the docker desktop app is running
 
 -  ### view python logs
 
-   `docker logs -f hscanner_scanner_1`
+   `docker compose logs server -f`
 
 - ### run tests
 
-  `docker exec -it hscanner_scanner_1 python -m pytest`
+  `docker compose run server python -m pytest`
 
 Other advanced commands are listed [here](./advanced-docker.md)
 
@@ -84,33 +84,4 @@ check out these 2 minutes explanations
 The web APIs are written using the FastAPI library, which has a great documentation.
 you can read it [here](https://fastapi.tiangolo.com/)
 
-The app uses the MongoDB database. You can read its documentation [here](https://www.mongodb.com/docs/),
-but all you need to get started with it is [this](https://www.mongodb.com/docs/manual/core/databases-and-collections/) 2 minutes introduction
-
-This is a bird-eye overview of the codebase
-
-        app/                All the python code
-        ├─ main.py          The starting point of the application,
-        |                     where FastAPI is initialized
-        ├─ database.py      The MongoDB database object
-        └─ models/          Pydantic models
-        |  ├─ api.py        Pydantic models that define the FastAPI endpoints
-        |  └─ database.py   Pydantic models that define the schema of all the
-        |                     MongoDB collections
-        └─ routers/         All the FastAPI endpoints, divided into separate 
-        |  |                  routes according to their functionality
-        |  ├─ account.py    /api/account/ endpoints
-        |  ├─ scanner.py    /api/scanner/ endpoints
-        |  ├─ target.py     /api/target/ endpoints
-        |  └─ websocket.py  Websocket manager that can be used to send data
-        |                     in real-time to connected web clients
-        └─ test/            All the app tests, written with pytest and 
-        |  |                  organized in a file structure that mirrors the
-        |  |                  rest of the codebase
-        |  └─ conftest.py  Configuration file for pytest, and fixtures 
-
-
-
------------------------------------------------
-
-TODO: the rest of this documentation
+TODO: the rest of this section.
