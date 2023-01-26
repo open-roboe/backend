@@ -1,0 +1,11 @@
+# This is the compose file for the openapi roboe backend
+version: "3.9"
+services:
+  #openapi generator
+  openapi:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.openapi
+    restart: "no"
+    volumes:
+      - ./openapi:/code/openapi
