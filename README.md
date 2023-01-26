@@ -8,7 +8,7 @@ Check out the [development guide](./docs/development.md) to start contributing t
 
 ## quick commands
 
-Quick access list of common commands that are described in details in the development guide.
+This is a quick-access list of common commands that are described in details in the development guide.
 This section is for those that already read the development guide.
 
 #### generate openapi schema and java client
