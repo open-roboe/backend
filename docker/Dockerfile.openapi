@@ -1,0 +1,23 @@
+# Docker image for the api client generation pipeline
+FROM python:3.9
+
+WORKDIR /code
+
+COPY docker/openapi.sh /code/openapi.sh
+RUN chmod +x openapi.sh
+
+RUN apt-get update
+RUN apt-get install -y wget
+RUN apt-get install -y default-jre
+
+RUN wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.1/openapi-generator-cli-6.2.1.jar -O openapi-generator-cli.jar
+
+COPY app/requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./app /code/app
+
+ENV SQLITE_FILE=database.db
+ENV SECRET_KEY=""
+
+# CMD ["python", "-m", "app.scripts.generate_openapi_schema"]
+ENTRYPOINT ["./openapi.sh"]

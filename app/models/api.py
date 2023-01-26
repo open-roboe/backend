@@ -50,3 +50,8 @@ class PollUserUpdate(BaseModel):
 class PollRoboaUpdate(BaseModel):
     lat: float
     lon: float
+
+
+class AuthToken(BaseModel):
+    access_token: str
+    token_type: str

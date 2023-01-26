@@ -53,7 +53,7 @@ async def register(form_data: api.UserCreate):
 """
 Oauth authentication endpoint
 """
-@router.post("/auth")
+@router.post("/auth", response_model=api.AuthToken)
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     jwt = test_credentials(form_data.username, form_data.password)
     return {"access_token": jwt, "token_type": "bearer"}

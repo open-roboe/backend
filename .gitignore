@@ -1,6 +1,9 @@
 # Environment file
 .env
 
+#temporary openapi folder
+temp-openapi/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
