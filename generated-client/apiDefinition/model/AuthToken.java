@@ -23,50 +23,66 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.openapitools.client.model.ValidationError;
 
 /**
- * HTTPValidationError
+ * AuthToken
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-26T01:09:40.778100+01:00[Europe/Rome]")
-public class HTTPValidationError {
-  public static final String SERIALIZED_NAME_DETAIL = "detail";
-  @SerializedName(SERIALIZED_NAME_DETAIL)
-  private List<ValidationError> detail = null;
+public class AuthToken {
+  public static final String SERIALIZED_NAME_ACCESS_TOKEN = "access_token";
+  @SerializedName(SERIALIZED_NAME_ACCESS_TOKEN)
+  private String accessToken;
 
-  public HTTPValidationError() {
+  public static final String SERIALIZED_NAME_TOKEN_TYPE = "token_type";
+  @SerializedName(SERIALIZED_NAME_TOKEN_TYPE)
+  private String tokenType;
+
+  public AuthToken() {
   }
 
-  public HTTPValidationError detail(List<ValidationError> detail) {
+  public AuthToken accessToken(String accessToken) {
     
-    this.detail = detail;
-    return this;
-  }
-
-  public HTTPValidationError addDetailItem(ValidationError detailItem) {
-    if (this.detail == null) {
-      this.detail = new ArrayList<>();
-    }
-    this.detail.add(detailItem);
+    this.accessToken = accessToken;
     return this;
   }
 
    /**
-   * Get detail
-   * @return detail
+   * Get accessToken
+   * @return accessToken
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
 
-  public List<ValidationError> getDetail() {
-    return detail;
+  public String getAccessToken() {
+    return accessToken;
   }
 
 
-  public void setDetail(List<ValidationError> detail) {
-    this.detail = detail;
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+
+  public AuthToken tokenType(String tokenType) {
+    
+    this.tokenType = tokenType;
+    return this;
+  }
+
+   /**
+   * Get tokenType
+   * @return tokenType
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+
+  public String getTokenType() {
+    return tokenType;
+  }
+
+
+  public void setTokenType(String tokenType) {
+    this.tokenType = tokenType;
   }
 
 
@@ -78,20 +94,22 @@ public class HTTPValidationError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    HTTPValidationError htTPValidationError = (HTTPValidationError) o;
-    return Objects.equals(this.detail, htTPValidationError.detail);
+    AuthToken authToken = (AuthToken) o;
+    return Objects.equals(this.accessToken, authToken.accessToken) &&
+        Objects.equals(this.tokenType, authToken.tokenType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(detail);
+    return Objects.hash(accessToken, tokenType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class HTTPValidationError {\n");
-    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("class AuthToken {\n");
+    sb.append("    accessToken: ").append(toIndentedString(accessToken)).append("\n");
+    sb.append("    tokenType: ").append(toIndentedString(tokenType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

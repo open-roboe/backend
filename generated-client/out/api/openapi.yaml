@@ -1,8 +1,5 @@
 openapi: 3.0.2
 info:
-  contact:
-    name: ""
-    url: https://github.com/open-roboe
   description: |2
 
     ### backend server for the roboapp, connecting roboe with the android clients
@@ -109,7 +106,8 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: '#/components/schemas/AuthToken'
           description: Successful Response
         "422":
           content:
@@ -332,6 +330,22 @@ paths:
       x-accepts: application/json
 components:
   schemas:
+    AuthToken:
+      example:
+        access_token: access_token
+        token_type: token_type
+      properties:
+        access_token:
+          title: Access Token
+          type: string
+        token_type:
+          title: Token Type
+          type: string
+      required:
+      - access_token
+      - token_type
+      title: AuthToken
+      type: object
     Body_login_api_account_auth_post:
       properties:
         grant_type:

@@ -215,7 +215,7 @@ This endpoint does not need any parameter.
 
 ## loginApiAccountAuthPost
 
-> Object loginApiAccountAuthPost(username, password, grantType, scope, clientId, clientSecret)
+> AuthToken loginApiAccountAuthPost(username, password, grantType, scope, clientId, clientSecret)
 
 Login
 
@@ -242,7 +242,7 @@ public class Example {
         String clientId = "clientId_example"; // String | 
         String clientSecret = "clientSecret_example"; // String | 
         try {
-            Object result = apiInstance.loginApiAccountAuthPost(username, password, grantType, scope, clientId, clientSecret);
+            AuthToken result = apiInstance.loginApiAccountAuthPost(username, password, grantType, scope, clientId, clientSecret);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AccountApi#loginApiAccountAuthPost");
@@ -269,7 +269,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**AuthToken**](AuthToken.md)
 
 ### Authorization
 
