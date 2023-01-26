@@ -20,4 +20,4 @@ ENV SQLITE_FILE=database.db
 ENV SECRET_KEY=""
 
 # CMD ["python", "-m", "app.scripts.generate_openapi_schema"]
- CMD ["./openapi.sh"]
+ENTRYPOINT ["./openapi.sh"]
