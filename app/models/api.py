@@ -12,14 +12,6 @@ class UserCreate(BaseModel):
 class UserResponse(database.UserBase):
     pass
 
-class UserGet(BaseModel):
-    username: str
-
-class UserUpdate(BaseModel):
-    lat: Optional[float] = 0
-    lon: Optional[float] = 0
-    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
-
 class RoboaCreate(BaseModel):
     name: str
     token: str
@@ -27,18 +19,53 @@ class RoboaCreate(BaseModel):
 class RoboaResponse(database.RoboaBase):
     pass
 
+
+class AuthToken(BaseModel):
+    access_token: str
+    token_type: str
+
+# roboa
+
 class RoboaGet(BaseModel):
     name: str
+# course
 
-class RoboaUpdate(BaseModel):
-    lat: Optional[float] = 0
-    lon: Optional[float] = 0
-    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
+class BuoyCreate(BaseModel):
+    id: int
+    description: Optional[str]
+    color: Optional[int]
+    lat: int
+    lon: int
 
+class BuoyUpdate(BaseModel):
+    id: str
+    description: Optional[str]
+    color: Optional[int]
+    lat: Optional[int]
+    lon: Optional[int]
+
+class CourseCreate(BaseModel):
+    name: str
+    type: str
+    jury: BuoyCreate
+    buoys: List[BuoyCreate]
+
+class CourseUpdate(BaseModel):
+    name: Optional[str]
+    type: Optional[str]
+    jury: BuoyUpdate
+    buoys: List[BuoyUpdate]
+
+class CourseResponse(BaseModel):
+    name: str
+    type: str
+    jury: database.BuoyJury
+    buoys: List[database.Buoy]
 
 # polling 
+
 class PollResponse(BaseModel):
-    courses: List[database.Course]
+    courses: List[CourseResponse]
     users: List[UserResponse]
     roboas: List[RoboaResponse]
 
@@ -51,7 +78,3 @@ class PollRoboaUpdate(BaseModel):
     lat: float
     lon: float
 
-
-class AuthToken(BaseModel):
-    access_token: str
-    token_type: str

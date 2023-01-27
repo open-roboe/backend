@@ -10,7 +10,7 @@ from ..models import database, api #same as "from app.models import database"
 router = APIRouter(prefix='/api/course', tags=['course'])
 
 
-@router.get("/", response_model=List[database.Course])
+@router.get("/", response_model=List[api.CourseResponse])
 async def get_all_courses(*, user = Depends(get_current_user)):
     """
     get all courses
@@ -20,53 +20,37 @@ async def get_all_courses(*, user = Depends(get_current_user)):
         return sessions
 
 
-@router.post("/", response_model=database.Course)
-async def add_course(course: database.Course, admin_user = Depends(get_current_admin_user)):
+@router.post("/", response_model=api.CourseResponse)
+async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_admin_user)):
     """
+    TOIMPLEMENT
     Add a course
     """
-    with Session(engine) as session:
-        session.add(course)
-        session.commit()
-        session.refresh(course)
-        return course
+    # with Session(engine) as session:
+    #     session.add(course)
+    #     session.commit()
+    #     session.refresh(course)
+    #     return course
 
 # to implement ==============================
 
 
-@router.post("/marker")
-async def create_marker(*, admin_user = Depends(get_current_admin_user)):
+@router.put("/{course}", response_model=api.CourseResponse)
+async def update_course(course: str, buoy: api.CourseUpdate, admin_user = Depends(get_current_admin_user)):
     """
-    create a new marker for the specified course
-    ideas: uuid, lat, lon, color
+    TOIMPLEMENT
+    create a new buoy for the specified course
     """
-    pass
-
-@router.put("/marker")
-async def update_marker(*, admin_user = Depends(get_current_admin_user)):
-    """
-    update a marker
-    """
-    pass
-
-@router.delete("/marker")
-async def delete_marker(*, admin_user = Depends(get_current_admin_user)):
-    """
-    delete a marker
-    """
-    pass
+    #generate id
+    return buoy
 
 
-@router.post("/marker/assign_roboa")
-async def marker_assign_roboa(*, admin_user = Depends(get_current_admin_user)):
+@router.post("/buoy/{id}/assing_roboa")
+async def marker_assign_roboa(id: str, roboa: api.RoboaGet, admin_user = Depends(get_current_admin_user)):
     """
-    assign specified roboa to specified marker
+    TOIMPLEMENT
+    assign specified roboa to specified buoy.
+    This operation will not cause the roboa to move
+    If you want to move the roboa use the roboa/move endpoint
     """
-    pass
-
-@router.post("/join_course")
-async def join_course(*, admin_user = Depends(get_current_admin_user)):
-    """
-    assign current logged user to specified course
-    """
-    pass
+    return "ok"
