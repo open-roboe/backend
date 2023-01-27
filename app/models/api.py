@@ -12,29 +12,12 @@ class UserCreate(BaseModel):
 class UserResponse(database.UserBase):
     pass
 
-class UserGet(BaseModel):
-    username: str
-
-class UserUpdate(BaseModel):
-    lat: Optional[float] = 0
-    lon: Optional[float] = 0
-    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
-
 class RoboaCreate(BaseModel):
     name: str
     token: str
 
 class RoboaResponse(database.RoboaBase):
     pass
-
-class RoboaGet(BaseModel):
-    name: str
-
-class RoboaUpdate(BaseModel):
-    lat: Optional[float] = 0
-    lon: Optional[float] = 0
-    course_id: Optional[str] = Field(default=None, foreign_key="course.name")
-
 
 # polling 
 class PollResponse(BaseModel):
@@ -55,3 +38,30 @@ class PollRoboaUpdate(BaseModel):
 class AuthToken(BaseModel):
     access_token: str
     token_type: str
+
+# roboa
+
+class Coords(BaseModel):
+    lat: float
+    lon: float
+
+class RoboaGet(BaseModel):
+    name: str
+# course
+
+class CourseCreate(BaseModel):
+    name: str
+    type: str
+
+class BuoyCreate(BaseModel):
+    description: Optional[str]
+    color: Optional[int]
+    lat: int
+    lon: int
+
+class BuoyUpdate(BaseModel):
+    description: Optional[str]
+    color: Optional[int]
+    lat: Optional[int]
+    lon: Optional[int]
+

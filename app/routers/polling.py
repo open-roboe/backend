@@ -15,6 +15,8 @@ router = APIRouter(prefix='/api/polling', tags=['polling'])
 async def poll_roboa_update(roboaData: api.PollRoboaUpdate):
     """
     Polling endpoint, called repeatedly by an authenticated roboa to send its metrics, and receive back commands
+
+    This endpoint updates the roboa last_update timestamp
     """
     #TODO: define and implement
     return "commands to define"
@@ -25,6 +27,8 @@ async def poll_user_update(new_data: api.PollUserUpdate, user: database.User = D
     """
     Polling endpoint, called repeatedly by an authenticated user to send its metrics
     and get data updates
+
+    This endpoint updates the user last_update timestamp
     """
     #update user data with received metrics, and update last_update
     with Session(engine) as session:

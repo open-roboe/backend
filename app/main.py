@@ -6,7 +6,7 @@ from sqlmodel import SQLModel
 from .models import database #importing the database models allow SQLModel to automatically generate the database
 from .database import engine
 
-from .routers import account, course, polling # import here other routes
+from .routers import account, course, polling, roboa # import here other routes
 
 
 description="""
@@ -50,4 +50,5 @@ app.add_middleware(
 app.include_router(account.router)
 app.include_router(course.router)
 app.include_router(polling.router)
+app.include_router(roboa.router)
 # activate here other imported routes
