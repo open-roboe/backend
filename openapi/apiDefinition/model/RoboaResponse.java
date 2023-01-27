@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 /**
  * RoboaResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-26T15:54:11.750536Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-27T10:30:03.689852Z[Etc/UTC]")
 public class RoboaResponse {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -46,9 +46,21 @@ public class RoboaResponse {
   @SerializedName(SERIALIZED_NAME_LON)
   private BigDecimal lon = new BigDecimal("0");
 
-  public static final String SERIALIZED_NAME_COURSE_ID = "course_id";
-  @SerializedName(SERIALIZED_NAME_COURSE_ID)
-  private String courseId;
+  public static final String SERIALIZED_NAME_ETA = "eta";
+  @SerializedName(SERIALIZED_NAME_ETA)
+  private Integer eta = 0;
+
+  public static final String SERIALIZED_NAME_ASSIGNED_BUOY = "assigned_buoy";
+  @SerializedName(SERIALIZED_NAME_ASSIGNED_BUOY)
+  private Integer assignedBuoy;
+
+  public static final String SERIALIZED_NAME_TARGET_LAT = "target_lat";
+  @SerializedName(SERIALIZED_NAME_TARGET_LAT)
+  private BigDecimal targetLat = new BigDecimal("0");
+
+  public static final String SERIALIZED_NAME_TARGET_LON = "target_lon";
+  @SerializedName(SERIALIZED_NAME_TARGET_LON)
+  private BigDecimal targetLon = new BigDecimal("0");
 
   public RoboaResponse() {
   }
@@ -145,26 +157,95 @@ public class RoboaResponse {
   }
 
 
-  public RoboaResponse courseId(String courseId) {
+  public RoboaResponse eta(Integer eta) {
     
-    this.courseId = courseId;
+    this.eta = eta;
     return this;
   }
 
    /**
-   * Get courseId
-   * @return courseId
+   * Get eta
+   * @return eta
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public String getCourseId() {
-    return courseId;
+  public Integer getEta() {
+    return eta;
   }
 
 
-  public void setCourseId(String courseId) {
-    this.courseId = courseId;
+  public void setEta(Integer eta) {
+    this.eta = eta;
+  }
+
+
+  public RoboaResponse assignedBuoy(Integer assignedBuoy) {
+    
+    this.assignedBuoy = assignedBuoy;
+    return this;
+  }
+
+   /**
+   * Get assignedBuoy
+   * @return assignedBuoy
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getAssignedBuoy() {
+    return assignedBuoy;
+  }
+
+
+  public void setAssignedBuoy(Integer assignedBuoy) {
+    this.assignedBuoy = assignedBuoy;
+  }
+
+
+  public RoboaResponse targetLat(BigDecimal targetLat) {
+    
+    this.targetLat = targetLat;
+    return this;
+  }
+
+   /**
+   * Get targetLat
+   * @return targetLat
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public BigDecimal getTargetLat() {
+    return targetLat;
+  }
+
+
+  public void setTargetLat(BigDecimal targetLat) {
+    this.targetLat = targetLat;
+  }
+
+
+  public RoboaResponse targetLon(BigDecimal targetLon) {
+    
+    this.targetLon = targetLon;
+    return this;
+  }
+
+   /**
+   * Get targetLon
+   * @return targetLon
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public BigDecimal getTargetLon() {
+    return targetLon;
+  }
+
+
+  public void setTargetLon(BigDecimal targetLon) {
+    this.targetLon = targetLon;
   }
 
 
@@ -181,12 +262,15 @@ public class RoboaResponse {
         Objects.equals(this.lastUpdate, roboaResponse.lastUpdate) &&
         Objects.equals(this.lat, roboaResponse.lat) &&
         Objects.equals(this.lon, roboaResponse.lon) &&
-        Objects.equals(this.courseId, roboaResponse.courseId);
+        Objects.equals(this.eta, roboaResponse.eta) &&
+        Objects.equals(this.assignedBuoy, roboaResponse.assignedBuoy) &&
+        Objects.equals(this.targetLat, roboaResponse.targetLat) &&
+        Objects.equals(this.targetLon, roboaResponse.targetLon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, lastUpdate, lat, lon, courseId);
+    return Objects.hash(name, lastUpdate, lat, lon, eta, assignedBuoy, targetLat, targetLon);
   }
 
   @Override
@@ -197,7 +281,10 @@ public class RoboaResponse {
     sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
     sb.append("    lat: ").append(toIndentedString(lat)).append("\n");
     sb.append("    lon: ").append(toIndentedString(lon)).append("\n");
-    sb.append("    courseId: ").append(toIndentedString(courseId)).append("\n");
+    sb.append("    eta: ").append(toIndentedString(eta)).append("\n");
+    sb.append("    assignedBuoy: ").append(toIndentedString(assignedBuoy)).append("\n");
+    sb.append("    targetLat: ").append(toIndentedString(targetLat)).append("\n");
+    sb.append("    targetLon: ").append(toIndentedString(targetLon)).append("\n");
     sb.append("}");
     return sb.toString();
   }

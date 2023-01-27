@@ -25,22 +25,22 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Course
+ * RoboaCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-26T15:54:11.750536Z[Etc/UTC]")
-public class Course {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-27T10:30:03.689852Z[Etc/UTC]")
+public class RoboaCreate {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
-  private String data = "";
+  public static final String SERIALIZED_NAME_TOKEN = "token";
+  @SerializedName(SERIALIZED_NAME_TOKEN)
+  private String token;
 
-  public Course() {
+  public RoboaCreate() {
   }
 
-  public Course name(String name) {
+  public RoboaCreate name(String name) {
     
     this.name = name;
     return this;
@@ -63,26 +63,26 @@ public class Course {
   }
 
 
-  public Course data(String data) {
+  public RoboaCreate token(String token) {
     
-    this.data = data;
+    this.token = token;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get token
+   * @return token
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
 
-  public String getData() {
-    return data;
+  public String getToken() {
+    return token;
   }
 
 
-  public void setData(String data) {
-    this.data = data;
+  public void setToken(String token) {
+    this.token = token;
   }
 
 
@@ -94,22 +94,22 @@ public class Course {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Course course = (Course) o;
-    return Objects.equals(this.name, course.name) &&
-        Objects.equals(this.data, course.data);
+    RoboaCreate roboaCreate = (RoboaCreate) o;
+    return Objects.equals(this.name, roboaCreate.name) &&
+        Objects.equals(this.token, roboaCreate.token);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, data);
+    return Objects.hash(name, token);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Course {\n");
+    sb.append("class RoboaCreate {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();
   }

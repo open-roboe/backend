@@ -9,8 +9,11 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
-import com.example.roboapp2.api.definition.model.Course;
+import com.example.roboapp2.api.definition.model.CourseCreate;
+import com.example.roboapp2.api.definition.model.CourseResponse;
+import com.example.roboapp2.api.definition.model.CourseUpdate;
 import com.example.roboapp2.api.definition.model.HTTPValidationError;
+import com.example.roboapp2.api.definition.model.RoboaGet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,70 +23,55 @@ import java.util.Map;
 public interface CourseApi {
   /**
    * Add Course
-   * Add a course
-   * @param course  (required)
-   * @return Call&lt;Course&gt;
+   * TOIMPLEMENT Add a course
+   * @param courseCreate  (required)
+   * @return Call&lt;CourseResponse&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
   @POST("api/course/")
-  Call<Course> addCourseApiCoursePost(
-    @retrofit2.http.Body Course course
+  Call<CourseResponse> addCourseApiCoursePost(
+    @retrofit2.http.Body CourseCreate courseCreate
   );
-
-  /**
-   * Create Marker
-   * create a new marker for the specified course ideas: uuid, lat, lon, color
-   * @return Call&lt;Object&gt;
-   */
-  @POST("api/course/marker")
-  Call<Object> createMarkerApiCourseMarkerPost();
-    
-
-  /**
-   * Delete Marker
-   * delete a marker
-   * @return Call&lt;Object&gt;
-   */
-  @DELETE("api/course/marker")
-  Call<Object> deleteMarkerApiCourseMarkerDelete();
-    
 
   /**
    * Get All Courses
    * get all courses
-   * @return Call&lt;List&lt;Course&gt;&gt;
+   * @return Call&lt;List&lt;CourseResponse&gt;&gt;
    */
   @GET("api/course/")
-  Call<List<Course>> getAllCoursesApiCourseGet();
-    
-
-  /**
-   * Join Course
-   * assign current logged user to specified course
-   * @return Call&lt;Object&gt;
-   */
-  @POST("api/course/join_course")
-  Call<Object> joinCourseApiCourseJoinCoursePost();
+  Call<List<CourseResponse>> getAllCoursesApiCourseGet();
     
 
   /**
    * Marker Assign Roboa
-   * assign specified roboa to specified marker
+   * TOIMPLEMENT assign specified roboa to specified buoy. This operation will not cause the roboa to move If you want to move the roboa use the roboa/move endpoint
+   * @param id  (required)
+   * @param roboaGet  (required)
    * @return Call&lt;Object&gt;
    */
-  @POST("api/course/marker/assign_roboa")
-  Call<Object> markerAssignRoboaApiCourseMarkerAssignRoboaPost();
-    
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("api/course/buoy/{id}/assing_roboa")
+  Call<Object> markerAssignRoboaApiCourseBuoyIdAssingRoboaPost(
+    @retrofit2.http.Path("id") String id, @retrofit2.http.Body RoboaGet roboaGet
+  );
 
   /**
-   * Update Marker
-   * update a marker
-   * @return Call&lt;Object&gt;
+   * Update Course
+   * TOIMPLEMENT create a new buoy for the specified course
+   * @param course  (required)
+   * @param courseUpdate  (required)
+   * @return Call&lt;CourseResponse&gt;
    */
-  @PUT("api/course/marker")
-  Call<Object> updateMarkerApiCourseMarkerPut();
-    
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("api/course/{course}")
+  Call<CourseResponse> updateCourseApiCourseCoursePut(
+    @retrofit2.http.Path("course") String course, @retrofit2.http.Body CourseUpdate courseUpdate
+  );
 
 }
