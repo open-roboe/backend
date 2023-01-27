@@ -26,59 +26,23 @@ async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_
     TOIMPLEMENT
     Add a course
     """
-    with Session(engine) as session:
-        session.add(course)
-        session.commit()
-        session.refresh(course)
-        return course
+    # with Session(engine) as session:
+    #     session.add(course)
+    #     session.commit()
+    #     session.refresh(course)
+    #     return course
 
 # to implement ==============================
 
 
-@router.post("/{course}/buoy", response_model=database.BuoyBase)
-async def create_buoy(course: str, buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
+@router.put("/{course}", response_model=database.Course)
+async def update_course(course: str, buoy: api.CourseUpdate, admin_user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     create a new buoy for the specified course
     """
     #generate id
     return buoy
-
-@router.post("/{course}/jury", response_model=database.BuoyBase)
-async def create_jury(course: str, buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
-    """
-    TOIMPLEMENT
-    create the course jury buoy
-    """
-    #generate id,
-    #update course.jury.id
-    return buoy
-
-@router.put("/buoy/{id}")
-async def update_buoy(id: str, buoy: api.BuoyUpdate, admin_user = Depends(get_current_admin_user)):
-    """
-    TOIMPLEMENT
-    update a buoy
-    """
-    return "ok"
-
-
-@router.put("/jury/{id}")
-async def update_jury(id: str, buoy: api.BuoyUpdate, admin_user = Depends(get_current_admin_user)):
-    """
-    TOIMPLEMENT
-    update a buoy
-    """
-    return "ok"
-
-
-@router.delete("/buoy/{id}")
-async def delete_buoy(id: str, admin_user = Depends(get_current_admin_user)):
-    """
-    TOIMPLEMENT
-    delete a buoy
-    """
-    return "ok"
 
 
 @router.post("/buoy/{id}/assing_roboa")

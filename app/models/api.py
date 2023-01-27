@@ -41,27 +41,33 @@ class AuthToken(BaseModel):
 
 # roboa
 
-class Coords(BaseModel):
-    lat: float
-    lon: float
-
 class RoboaGet(BaseModel):
     name: str
 # course
 
-class CourseCreate(BaseModel):
-    name: str
-    type: str
-
 class BuoyCreate(BaseModel):
+    id: int
     description: Optional[str]
     color: Optional[int]
     lat: int
     lon: int
 
 class BuoyUpdate(BaseModel):
+    id: str
     description: Optional[str]
     color: Optional[int]
     lat: Optional[int]
     lon: Optional[int]
+
+class CourseCreate(BaseModel):
+    name: str
+    type: str
+    jury: BuoyCreate
+    buoys: List[BuoyCreate]
+
+class CourseUpdate(BaseModel):
+    name: Optional[str]
+    type: Optional[str]
+    jury: BuoyUpdate
+    buoys: List[BuoyUpdate]
 

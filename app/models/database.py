@@ -1,9 +1,9 @@
 """Models for the mongoDb collections
 """
 
-from typing import Optional
+from typing import Optional, List
 
-from sqlmodel import Field, SQLModel, create_engine
+from sqlmodel import Field, SQLModel, create_engine, Relationship
 
 class UserBase(SQLModel):
     username: str = Field(primary_key=True)
@@ -44,9 +44,9 @@ class Course(SQLModel, table=True):
     type: str
     jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
 
-
 class Buoy(BuoyBase, table=True):
     course_id: str = Field(foreign_key="course.name")
 
 class BuoyJury(BuoyBase, table=True):
     pass
+

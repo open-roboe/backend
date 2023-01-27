@@ -46,8 +46,8 @@ async def delete_roboa(name: str, admin_user = Depends(get_current_admin_user)):
     return "ok"
 
 
-@router.put("/{name}/move")
-async def assign_target_coords(name: str, coords: api.Coords, user = Depends(get_current_admin_user)):
+@router.put("/{name}/move_to_buoy")
+async def move_to_assigned_buoy(name: str, user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     set the target coordinates of the specified roboa,
