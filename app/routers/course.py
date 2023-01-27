@@ -10,7 +10,7 @@ from ..models import database, api #same as "from app.models import database"
 router = APIRouter(prefix='/api/course', tags=['course'])
 
 
-@router.get("/", response_model=List[database.Course])
+@router.get("/", response_model=List[api.CourseResponse])
 async def get_all_courses(*, user = Depends(get_current_user)):
     """
     get all courses
@@ -20,7 +20,7 @@ async def get_all_courses(*, user = Depends(get_current_user)):
         return sessions
 
 
-@router.post("/", response_model=database.Course)
+@router.post("/", response_model=api.CourseResponse)
 async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
@@ -35,7 +35,7 @@ async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_
 # to implement ==============================
 
 
-@router.put("/{course}", response_model=database.Course)
+@router.put("/{course}", response_model=api.CourseResponse)
 async def update_course(course: str, buoy: api.CourseUpdate, admin_user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT

@@ -19,21 +19,6 @@ class RoboaCreate(BaseModel):
 class RoboaResponse(database.RoboaBase):
     pass
 
-# polling 
-class PollResponse(BaseModel):
-    courses: List[database.Course]
-    users: List[UserResponse]
-    roboas: List[RoboaResponse]
-
-
-class PollUserUpdate(BaseModel):
-    lat: float
-    lon: float
-
-class PollRoboaUpdate(BaseModel):
-    lat: float
-    lon: float
-
 
 class AuthToken(BaseModel):
     access_token: str
@@ -70,4 +55,26 @@ class CourseUpdate(BaseModel):
     type: Optional[str]
     jury: BuoyUpdate
     buoys: List[BuoyUpdate]
+
+class CourseResponse(BaseModel):
+    name: str
+    type: str
+    jury: database.BuoyJury
+    buoys: List[database.Buoy]
+
+# polling 
+
+class PollResponse(BaseModel):
+    courses: List[CourseResponse]
+    users: List[UserResponse]
+    roboas: List[RoboaResponse]
+
+
+class PollUserUpdate(BaseModel):
+    lat: float
+    lon: float
+
+class PollRoboaUpdate(BaseModel):
+    lat: float
+    lon: float
 
