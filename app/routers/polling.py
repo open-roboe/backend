@@ -35,7 +35,6 @@ async def poll_user_update(new_data: api.PollUserUpdate, user: database.User = D
         user.last_update = int(time.time())
         new_data = new_data.dict(exclude_unset=True)
         for key, value in new_data.items():
-            print(key)
             setattr(user, key, value)
         session.add(user)
         session.commit()

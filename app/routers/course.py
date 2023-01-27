@@ -36,7 +36,7 @@ async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_
 
 
 @router.post("/{course}/buoy", response_model=database.BuoyBase)
-async def create_buoy(buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
+async def create_buoy(course: str, buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     create a new buoy for the specified course
@@ -45,7 +45,7 @@ async def create_buoy(buoy: api.BuoyCreate, admin_user = Depends(get_current_adm
     return buoy
 
 @router.post("/{course}/jury", response_model=database.BuoyBase)
-async def create_jury(buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
+async def create_jury(course: str, buoy: api.BuoyCreate, admin_user = Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     create the course jury buoy
