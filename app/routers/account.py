@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.logger import logger
-from app.auth import get_current_user, get_current_admin_user, get_current_super_admin_user, register_user, test_credentials
+from app.auth import get_current_user, get_current_admin_user, get_current_super_admin_user, register_user, \
+    test_credentials
 from fastapi.security import OAuth2PasswordRequestForm
 
 from fastapi import Depends, status
-from ..models import api #same as: from app.models import api
+from ..models import api  # same as: from app.models import api
 from ..models.database import User
-
 
 router = APIRouter(prefix='/api/account', tags=['account'])
 
@@ -19,6 +19,7 @@ async def get_logged_user(current_user: User = Depends(get_current_user)):
     """
     return current_user
 
+
 @router.get("/admin", response_model=api.UserResponse)
 async def get_logged_admin_user(current_user: User = Depends(get_current_admin_user)):
     """
@@ -26,6 +27,7 @@ async def get_logged_admin_user(current_user: User = Depends(get_current_admin_u
     Used to test if the current account is admin
     """
     return current_user
+
 
 @router.get("/super_admin", response_model=api.UserResponse)
 async def get_logged_super_admin_user(current_user: User = Depends(get_current_super_admin_user)):
@@ -53,8 +55,9 @@ async def register(form_data: api.UserCreate):
 """
 Oauth authentication endpoint
 """
+
+
 @router.post("/auth", response_model=api.AuthToken)
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     jwt = test_credentials(form_data.username, form_data.password)
     return {"access_token": jwt, "token_type": "bearer"}
-

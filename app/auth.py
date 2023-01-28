@@ -47,9 +47,9 @@ def test_credentials(username: str, password: str):
     if not verify_password(user.hashed_password, password):
         raise HTTPException(status_code=400, detail="wrong_password")
     # prepare response data
-    responseJSON = {"username": user.username}
+    response_json = {"username": user.username}
     return create_access_token(
-        responseJSON, timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+        response_json, timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     )
 
 

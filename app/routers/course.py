@@ -1,17 +1,17 @@
-from fastapi import APIRouter, HTTPException, Depends
-from sqlmodel import Session, select
-from fastapi.responses import JSONResponse
-from fastapi.logger import logger
-from app.database import engine
 from typing import List
-from app.auth import get_current_user, get_current_admin_user, get_current_super_admin_user
-from ..models import database, api #same as "from app.models import database"
+
+from fastapi import APIRouter, Depends
+from sqlmodel import Session, select
+
+from app.auth import get_current_user, get_current_admin_user
+from app.database import engine
+from ..models import database, api  # same as "from app.models import database"
 
 router = APIRouter(prefix='/api/course', tags=['course'])
 
 
 @router.get("/", response_model=List[api.CourseResponse])
-async def get_all_courses(*, user = Depends(get_current_user)):
+async def get_all_courses(*, user=Depends(get_current_user)):
     """
     get all courses
     """
@@ -21,7 +21,7 @@ async def get_all_courses(*, user = Depends(get_current_user)):
 
 
 @router.post("/", response_model=api.CourseResponse)
-async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_admin_user)):
+async def add_course(course: api.CourseCreate, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     Add a course
@@ -32,21 +32,22 @@ async def add_course(course: api.CourseCreate, admin_user = Depends(get_current_
     #     session.refresh(course)
     #     return course
 
+
 # to implement ==============================
 
 
 @router.put("/{course}", response_model=api.CourseResponse)
-async def update_course(course: str, buoy: api.CourseUpdate, admin_user = Depends(get_current_admin_user)):
+async def update_course(course: str, buoy: api.CourseUpdate, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     create a new buoy for the specified course
     """
-    #generate id
+    # generate id
     return buoy
 
 
 @router.post("/buoy/{id}/assing_roboa")
-async def marker_assign_roboa(id: str, roboa: api.RoboaGet, admin_user = Depends(get_current_admin_user)):
+async def marker_assign_roboa(id: str, roboa: api.RoboaGet, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     assign specified roboa to specified buoy.

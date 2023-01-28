@@ -3,31 +3,31 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.logger import logger
 
 from sqlmodel import SQLModel
-from .models import database #importing the database models allow SQLModel to automatically generate the database
+from .models import database  # importing the database models allow SQLModel to automatically generate the database
 from .database import engine
 
-from .routers import account, course, polling, roboa # import here other routes
+from .routers import account, course, polling, roboa  # import here other routes
 
-
-description="""
+description = """
 ### backend server for the roboapp, connecting roboe with the android clients
 """
-
 
 app = FastAPI(
     title="roboe backend",
     description=description,
     version="0.0.1",
     contact={
-      "name": "",
-      "url": "https://github.com/open-roboe"
+        "name": "",
+        "url": "https://github.com/open-roboe"
     },
 )
 
-#TODO: replace with real migration system
+
+# TODO: replace with real migration system
 @app.on_event("startup")
 def on_startup():
     SQLModel.metadata.create_all(engine)
+
 
 # During development, the webserver runs on a separate origin
 # therefore a CORS configuration on the api server is required.

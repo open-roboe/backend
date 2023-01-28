@@ -1,6 +1,9 @@
 # Environment file
 .env
 
+.idea
+dbtest.db
+
 #temporary openapi folder
 temp-openapi/
 

@@ -1,18 +1,17 @@
-from fastapi import APIRouter, HTTPException, Depends
-from sqlmodel import Session, select
-from fastapi.responses import JSONResponse
-from fastapi.logger import logger
-from app.database import engine
 from typing import List
-from app.auth import get_current_user, get_current_admin_user, get_current_super_admin_user
-from ..models import database, api #same as "from app.models import database"
 
+from fastapi import APIRouter, Depends
+from sqlmodel import Session, select
+
+from app.auth import get_current_user, get_current_admin_user
+from app.database import engine
+from ..models import database, api  # same as "from app.models import database"
 
 router = APIRouter(prefix='/api/roboa', tags=['roboa'])
 
 
 @router.get("/", response_model=List[api.RoboaResponse])
-async def get_all_roboas(*, user = Depends(get_current_user)):
+async def get_all_roboas(*, user=Depends(get_current_user)):
     """
     TOTEST
     get all roboas
@@ -23,12 +22,12 @@ async def get_all_roboas(*, user = Depends(get_current_user)):
 
 
 @router.post("/", response_model=api.RoboaResponse)
-async def add_roboa(roboa: api.RoboaCreate, admin_user = Depends(get_current_admin_user)):
+async def add_roboa(roboa: api.RoboaCreate, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     Add a roboa
     """
-    #hash the token
+    # hash the token
 
     # with Session(engine) as session:
     #     session.add(course)
@@ -37,8 +36,9 @@ async def add_roboa(roboa: api.RoboaCreate, admin_user = Depends(get_current_adm
     #     return course
     return "ok"
 
+
 @router.delete("/{name}")
-async def delete_roboa(name: str, admin_user = Depends(get_current_admin_user)):
+async def delete_roboa(name: str, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     delete a roboa
@@ -47,7 +47,7 @@ async def delete_roboa(name: str, admin_user = Depends(get_current_admin_user)):
 
 
 @router.put("/{name}/move_to_buoy")
-async def move_to_assigned_buoy(name: str, user = Depends(get_current_admin_user)):
+async def move_to_assigned_buoy(name: str, user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     set the target coordinates of the specified roboa,
