@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 
 from . import database
 
+# ====================
+# user and auth models
 
 class UserCreate(BaseModel):
     username: str
@@ -15,6 +17,14 @@ class UserResponse(database.UserBase):
     pass
 
 
+class AuthToken(BaseModel):
+    access_token: str
+    token_type: str
+
+
+# ====================
+# roboa
+
 class RoboaCreate(BaseModel):
     name: str
     token: str
@@ -24,18 +34,12 @@ class RoboaResponse(database.RoboaBase):
     pass
 
 
-class AuthToken(BaseModel):
-    access_token: str
-    token_type: str
-
-
-# roboa
-
 class RoboaGet(BaseModel):
     name: str
 
 
-# course
+# ====================
+# Buoy
 
 class BuoyCreate(BaseModel):
     id: int
@@ -52,6 +56,11 @@ class BuoyUpdate(BaseModel):
     lat: Optional[int]
     lon: Optional[int]
 
+class BuoyResponse(database.BuoyBase):
+    pass
+
+# ====================
+# Course
 
 class CourseCreate(BaseModel):
     name: str
@@ -67,13 +76,15 @@ class CourseUpdate(BaseModel):
     buoys: List[BuoyUpdate]
 
 
-class CourseResponse(BaseModel):
+class CourseResponse(database.CourseBase):
     name: str
     type: str
+    #these are not database fields!
     jury: database.BuoyJury
     buoys: List[database.Buoy]
 
 
+# ====================
 # polling
 
 class PollResponse(BaseModel):

@@ -1,36 +1,58 @@
+import time
 from typing import List
 
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
 from app.auth import get_current_user, get_current_admin_user
-from app.database import engine
+from app.database import engine, get_session
 from ..models import database, api  # same as "from app.models import database"
 
 router = APIRouter(prefix='/api/course', tags=['course'])
 
 
 @router.get("/", response_model=List[api.CourseResponse])
-async def get_all_courses(*, user=Depends(get_current_user)):
+async def get_all_courses(*, user=Depends(get_current_user), session=Depends(get_session)):
     """
     get all courses
     """
-    with Session(engine) as session:
-        sessions = session.exec(select(database.Course)).all()
-        return sessions
+    return session.exec(select(database.Course)).all()
 
 
 @router.post("/", response_model=api.CourseResponse)
-async def add_course(course: api.CourseCreate, admin_user=Depends(get_current_admin_user)):
+async def add_course(course_create: api.CourseCreate, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
     Add a course
     """
-    # with Session(engine) as session:
-    #     session.add(course)
-    #     session.commit()
-    #     session.refresh(course)
-    #     return course
+
+    # insert the course
+    course = database.Course(
+        creation_date = time.time(),
+        name=course_create.name,
+        type=course_create.type,
+    )
+    with Session(engine) as session:
+        session.add(course)
+        session.commit()
+        session.refresh(course)
+
+    #insert the jury
+    jury = database.BuoyJury()
+    jury_create_dict = course_create.jury.dict(exclude_unset=True)
+    for key, value in jury_create_dict.items():
+        setattr(jury, key, value)
+    with Session(engine) as session:
+        session.add(jury)
+        session.commit()
+        session.refresh(jury)
+
+    # update the course with the jury id
+    course.jury_id = jury.id
+    with Session(engine) as session:
+        session.add(course)
+        session.commit()
+        session.refresh(course)
 
 
 # to implement ==============================

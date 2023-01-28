@@ -5,6 +5,8 @@ from typing import Optional, List
 
 from sqlmodel import Field, SQLModel, create_engine, Relationship
 
+# ====================
+# base models, used by both db models and api models
 
 class UserBase(SQLModel):
     username: str = Field(primary_key=True)
@@ -34,6 +36,16 @@ class BuoyBase(SQLModel):
     lat: int
     lon: int
 
+class CourseBase(SQLModel):
+    name: str = Field(primary_key=True)
+    creation_date: int
+    type: str
+    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
+
+
+# ====================
+# database models. It's not recomended to
+# use these models for api operations
 
 class User(UserBase, table=True):
     hashed_password: str
@@ -43,11 +55,9 @@ class Roboa(RoboaBase, table=True):
     hashed_token: str
 
 
-class Course(SQLModel, table=True):
-    name: str = Field(primary_key=True)
-    creation_date: int
-    type: str
-    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
+class Course(CourseBase, table=True):
+    jury: Optional["BuoyJury"] = Relationship()
+    buoys: List["Buoy"] = Relationship()
 
 
 class Buoy(BuoyBase, table=True):
