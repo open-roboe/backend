@@ -1,7 +1,8 @@
 import time
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 
 from app.auth import get_current_user, get_current_admin_user
@@ -20,39 +21,46 @@ async def get_all_courses(*, user=Depends(get_current_user), session=Depends(get
 
 
 @router.post("/", response_model=api.CourseResponse)
-async def add_course(course_create: api.CourseCreate, admin_user=Depends(get_current_admin_user)):
+async def add_course(course_create: api.CourseCreate,
+                     admin_user=Depends(get_current_admin_user),
+                     session=Depends(get_session)
+                     ):
     """
-    TOIMPLEMENT
-    Add a course
+    Add a course, with its jury and buoys.
+
+    Courses are the same thing as Regattas. It's just a synonym
     """
 
-    # insert the course
+    # create the course
     course = database.Course(
-        creation_date = time.time(),
+        creation_date=time.time(),
         name=course_create.name,
         type=course_create.type,
     )
-    with Session(engine) as session:
-        session.add(course)
-        session.commit()
-        session.refresh(course)
-
-    #insert the jury
-    jury = database.BuoyJury()
+    # create the jury
     jury_create_dict = course_create.jury.dict(exclude_unset=True)
-    for key, value in jury_create_dict.items():
-        setattr(jury, key, value)
-    with Session(engine) as session:
-        session.add(jury)
-        session.commit()
-        session.refresh(jury)
-
+    jury = database.BuoyJury(
+        **jury_create_dict
+    )
     # update the course with the jury id
     course.jury_id = jury.id
-    with Session(engine) as session:
+    # create all the buoys
+    for buoy_create in course_create.buoys:
+        buoy = database.Buoy(
+            course_id=course.name,
+            **buoy_create.dict()
+        )
+        session.add(buoy)
+    # attempt database commit
+    try:
+        session.add(jury)
         session.add(course)
         session.commit()
         session.refresh(course)
+    except IntegrityError:
+        raise HTTPException(status_code=400, detail="course_or_jury_already_exist")
+
+    return course
 
 
 # to implement ==============================
