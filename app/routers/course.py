@@ -30,7 +30,6 @@ async def add_course(course_create: api.CourseCreate,
 
     Courses are the same thing as Regattas. It's just a synonym
     """
-
     # create the course
     course = database.Course(
         creation_date=time.time(),
@@ -59,7 +58,6 @@ async def add_course(course_create: api.CourseCreate,
         session.refresh(course)
     except IntegrityError:
         raise HTTPException(status_code=400, detail="course_or_jury_already_exist")
-
     return course
 
 
@@ -70,9 +68,8 @@ async def add_course(course_create: api.CourseCreate,
 async def update_course(course: str, buoy: api.CourseUpdate, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
-    create a new buoy for the specified course
+    update a course
     """
-    # generate id
     return buoy
 
 
