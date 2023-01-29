@@ -13,5 +13,5 @@ This section is for those that already read the development guide.
 
 #### generate openapi schema and java client
 
-    docker compose -f docker-compose.openapi.yml up --build --remove-orphans
+    docker compose -f docker-compose.openapi.yml up --remove-orphans
 

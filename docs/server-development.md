@@ -93,7 +93,7 @@ you can read it [here](https://fastapi.tiangolo.com/)
 
   ### generate the documentation and java client
 
-    docker compose -f docker-compose.openapi.yml up --build --remove-orphans
+    docker compose -f docker-compose.openapi.yml up --remove-orphans
 
   ### update the pipeline
 
