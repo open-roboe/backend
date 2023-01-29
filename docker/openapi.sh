@@ -22,3 +22,7 @@ java -jar openapi-generator-cli.jar generate -i openapi/openapi.json \
 cp -r temp-openapi/src/main/java/com/example/roboapp2/api/definition/api/ openapi/apiDefinition/
 
 cp -r temp-openapi/src/main/java/com/example/roboapp2/api/definition/model/ openapi/apiDefinition/
+
+chmod -R 777 openapi
+
+

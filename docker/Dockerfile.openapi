@@ -1,6 +1,8 @@
 # Docker image for the api client generation pipeline
 FROM python:3.9
 
+RUN adduser --disabled-password --gecos '' nonroot
+
 WORKDIR /code
 
 COPY docker/openapi.sh /code/openapi.sh

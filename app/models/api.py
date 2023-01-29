@@ -70,7 +70,7 @@ class CourseCreate(BaseModel):
 
 
 class CourseUpdate(BaseModel):
-    name: Optional[str]
+    name: str
     type: Optional[str]
     jury: BuoyUpdate
     buoys: List[BuoyUpdate]
