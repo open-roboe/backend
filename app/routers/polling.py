@@ -3,7 +3,7 @@ import time
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
-from app.auth import get_current_user
+from app.auth import get_current_user, get_current_roboa
 from app.database import engine, get_session
 from ..models import database, api  # "from app.models import database" is better, but not recognized by my linter lol
 
@@ -11,7 +11,10 @@ router = APIRouter(prefix='/api/polling', tags=['polling'])
 
 
 @router.post("/roboa")
-async def poll_roboa_update(roboa_data: api.PollRoboaUpdate):
+async def poll_roboa_update(
+        roboa_data: api.PollRoboaUpdate,
+        roboa: database.Roboa = Depends(get_current_roboa)
+):
     """
     Polling endpoint, called repeatedly by an authenticated roboa to send its metrics, and receive back commands
 

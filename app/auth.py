@@ -1,4 +1,4 @@
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, HTTPBasic, HTTPBasicCredentials
 from fastapi import Depends, status, HTTPException
 from jose import JWTError, jwt
 from fastapi.logger import logger
@@ -7,15 +7,19 @@ from sqlmodel import Field, Session, select
 import time, os
 from datetime import datetime, timedelta
 from typing import Union
-from .database import engine
+from .database import engine, get_session
 from .models import api, database #same as from app.models
 
+# roboa security configuration
+basic_security = HTTPBasic()
 
+# user security configuration
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/account/auth")
-# openssl rand -hex 32
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY'] # openssl rand -hex 32
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 365
+
+# code for users authentication
 
 def verify_password(hashed_password: str, plain_password: str) -> bool:
     ph = PasswordHasher()
@@ -114,3 +118,31 @@ async def get_current_super_admin_user(current_user: database.User = Depends(get
     if not current_user.super_admin:
         raise HTTPException(status_code=400, detail="Insufficient account permissions")
     return current_user
+
+
+# code for roboa authentication
+
+def get_current_roboa(
+        credentials: HTTPBasicCredentials = Depends(basic_security),
+        session: Session = Depends(get_session)
+) -> database.Roboa:
+    statement = select(database.Roboa).where(database.Roboa.name == credentials.username)
+    results = session.exec(statement)
+    roboa = results.first()
+    if roboa is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+
+    if not verify_password(roboa.hashed_token, credentials.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+
+    return roboa
+
+

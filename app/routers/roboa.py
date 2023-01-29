@@ -1,10 +1,11 @@
 from typing import List
-
-from fastapi import APIRouter, Depends
+import time
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 
-from app.auth import get_current_user, get_current_admin_user
-from app.database import engine
+from app.auth import get_current_user, get_current_admin_user, get_password_hash
+from app.database import engine, get_session
 from ..models import database, api  # same as "from app.models import database"
 
 router = APIRouter(prefix='/api/roboa', tags=['roboa'])
@@ -13,7 +14,6 @@ router = APIRouter(prefix='/api/roboa', tags=['roboa'])
 @router.get("/", response_model=List[api.RoboaResponse])
 async def get_all_roboas(*, user=Depends(get_current_user)):
     """
-    TOTEST
     get all roboas
     """
     with Session(engine) as session:
@@ -22,19 +22,32 @@ async def get_all_roboas(*, user=Depends(get_current_user)):
 
 
 @router.post("/", response_model=api.RoboaResponse)
-async def add_roboa(roboa: api.RoboaCreate, admin_user=Depends(get_current_admin_user)):
+async def add_roboa(
+        roboa: api.RoboaCreate,
+        admin_user=Depends(get_current_admin_user),
+        session: Session = Depends(get_session)
+):
     """
-    TOIMPLEMENT
-    Add a roboa
+    Register a new roboa in the system
     """
     # hash the token
+    hashed_token = get_password_hash(roboa.token)
+    # create the roboa
+    roboa = database.Roboa(
+        name=roboa.name,
+        hashed_token=hashed_token,
+        last_update=time.time()
+    )
+    session.add(roboa)
+    try:
+        session.commit()
+        session.refresh(roboa)
+    except IntegrityError:
+        raise HTTPException(status_code=400, detail="roboa_name_already_exists")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="registration_failed")
 
-    # with Session(engine) as session:
-    #     session.add(course)
-    #     session.commit()
-    #     session.refresh(course)
-    #     return course
-    return "ok"
+    return roboa
 
 
 @router.delete("/{name}")
