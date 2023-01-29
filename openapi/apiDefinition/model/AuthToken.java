@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * AuthToken
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-26T15:54:11.750536Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
 public class AuthToken {
   public static final String SERIALIZED_NAME_ACCESS_TOKEN = "access_token";
   @SerializedName(SERIALIZED_NAME_ACCESS_TOKEN)

@@ -31,7 +31,7 @@ public interface PollingApi {
 
   /**
    * Poll Roboa Update
-   * Polling endpoint, called repeatedly by an authenticated roboa to send its metrics, and receive back commands
+   * Polling endpoint, called repeatedly by an authenticated roboa to send its metrics, and receive back commands  This endpoint updates the roboa last_update timestamp
    * @param pollRoboaUpdate  (required)
    * @return Call&lt;Object&gt;
    */
@@ -45,7 +45,7 @@ public interface PollingApi {
 
   /**
    * Poll User Update
-   * Polling endpoint, called repeatedly by an authenticated user to send its metrics and get data updates
+   * Polling endpoint, called repeatedly by an authenticated user to send its metrics and get data updates  This endpoint updates the user last_update timestamp
    * @param pollUserUpdate  (required)
    * @return Call&lt;PollResponse&gt;
    */

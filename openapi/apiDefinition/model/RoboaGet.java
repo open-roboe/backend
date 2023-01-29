@@ -23,67 +23,39 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
- * PollRoboaUpdate
+ * RoboaGet
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
-public class PollRoboaUpdate {
-  public static final String SERIALIZED_NAME_LAT = "lat";
-  @SerializedName(SERIALIZED_NAME_LAT)
-  private BigDecimal lat;
+public class RoboaGet {
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
-  public static final String SERIALIZED_NAME_LON = "lon";
-  @SerializedName(SERIALIZED_NAME_LON)
-  private BigDecimal lon;
-
-  public PollRoboaUpdate() {
+  public RoboaGet() {
   }
 
-  public PollRoboaUpdate lat(BigDecimal lat) {
+  public RoboaGet name(String name) {
     
-    this.lat = lat;
+    this.name = name;
     return this;
   }
 
    /**
-   * Get lat
-   * @return lat
+   * Get name
+   * @return name
   **/
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public BigDecimal getLat() {
-    return lat;
+  public String getName() {
+    return name;
   }
 
 
-  public void setLat(BigDecimal lat) {
-    this.lat = lat;
-  }
-
-
-  public PollRoboaUpdate lon(BigDecimal lon) {
-    
-    this.lon = lon;
-    return this;
-  }
-
-   /**
-   * Get lon
-   * @return lon
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public BigDecimal getLon() {
-    return lon;
-  }
-
-
-  public void setLon(BigDecimal lon) {
-    this.lon = lon;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -95,22 +67,20 @@ public class PollRoboaUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PollRoboaUpdate pollRoboaUpdate = (PollRoboaUpdate) o;
-    return Objects.equals(this.lat, pollRoboaUpdate.lat) &&
-        Objects.equals(this.lon, pollRoboaUpdate.lon);
+    RoboaGet roboaGet = (RoboaGet) o;
+    return Objects.equals(this.name, roboaGet.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lat, lon);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PollRoboaUpdate {\n");
-    sb.append("    lat: ").append(toIndentedString(lat)).append("\n");
-    sb.append("    lon: ").append(toIndentedString(lon)).append("\n");
+    sb.append("class RoboaGet {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,3 +9,4 @@ services:
     restart: "no"
     volumes:
       - ./openapi:/code/openapi
+      - ./app:/code/app
