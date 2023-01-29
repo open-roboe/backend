@@ -64,13 +64,48 @@ async def add_course(course_create: api.CourseCreate,
 # to implement ==============================
 
 
-@router.put("/{course}", response_model=api.CourseResponse)
-async def update_course(course: str, buoy: api.CourseUpdate, admin_user=Depends(get_current_admin_user)):
+@router.put("/{course_name}", response_model=api.CourseResponse)
+async def update_course(
+        course_name: str,
+        course_update: api.CourseUpdate,
+        admin_user=Depends(get_current_admin_user),
+        session = Depends(get_session)
+):
     """
-    TOIMPLEMENT
     update a course
+
+    note: course.name, jury.id and buoy.id are identifiers and cannot be changed
     """
-    return buoy
+    #get the original course
+    course: database.Course = session.get(database.Course, course_name)
+    if not course:
+        raise HTTPException(status_code=404, detail="course_not_found")
+    jury = course.jury
+    buoys = course.buoys
+    #modify the course
+    if course_update.type:
+        course.type = course_update.type
+    #modify the jury
+    saved_jury_id = jury.id
+    jury_update_dict = course_update.jury.dict(exclude_unset=True)
+    for key, value in jury_update_dict.items():
+        setattr(jury, key, value)
+    jury.id = saved_jury_id
+    #modify the buoys
+    for buoy_update in course_update.buoys:
+        #find an existing buoy to modify
+        for buoy in buoys:
+            if buoy.id == buoy_update.id:
+                buoy_update_dict = buoy_update.dict(exclude_unset=True)
+                for key, value in buoy_update_dict.items():
+                    setattr(buoy, key, value)
+                session.add(buoy)
+
+    session.add(jury)
+    session.add(course)
+    session.commit()
+    session.refresh(course)
+    return course
 
 
 @router.post("/buoy/{id}/assing_roboa")
