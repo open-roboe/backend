@@ -3,10 +3,10 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
-from sqlmodel import Session, select
+from sqlmodel import select
 
 from app.auth import get_current_user, get_current_admin_user
-from app.database import engine, get_session
+from app.database import get_session
 from ..models import database, api  # same as "from app.models import database"
 
 router = APIRouter(prefix='/api/course', tags=['course'])
@@ -61,12 +61,8 @@ async def add_course(course_create: api.CourseCreate,
     return course
 
 
-# to implement ==============================
-
-
-@router.put("/{course_name}", response_model=api.CourseResponse)
+@router.put("/", response_model=api.CourseResponse)
 async def update_course(
-        course_name: str,
         course_update: api.CourseUpdate,
         admin_user=Depends(get_current_admin_user),
         session = Depends(get_session)
@@ -77,7 +73,7 @@ async def update_course(
     note: course.name, jury.id and buoy.id are identifiers and cannot be changed
     """
     #get the original course
-    course: database.Course = session.get(database.Course, course_name)
+    course: database.Course = session.get(database.Course, course_update.name)
     if not course:
         raise HTTPException(status_code=404, detail="course_not_found")
     jury = course.jury
@@ -108,12 +104,14 @@ async def update_course(
     return course
 
 
-@router.post("/buoy/{id}/assing_roboa")
-async def marker_assign_roboa(id: str, roboa: api.RoboaGet, admin_user=Depends(get_current_admin_user)):
+@router.post("/{course_name}/buoy/{buoy_id}/assign_roboa")
+async def marker_assign_roboa(buoy_id: str, roboa: api.RoboaGet, admin_user=Depends(get_current_admin_user)):
     """
     TOIMPLEMENT
-    assign specified roboa to specified buoy.
-    This operation will not cause the roboa to move
+    assign a roboa to a buoy. This also works for buoys of type jury.
+    Just pass the id of the jury in the buoy_id parameter
+
+    This operation will not cause the roboa to move!
     If you want to move the roboa use the roboa/move endpoint
     """
     return "ok"
