@@ -3,7 +3,7 @@
 
 from typing import Optional, List
 
-from sqlmodel import Field, SQLModel, create_engine, Relationship
+from sqlmodel import Field, SQLModel, Relationship
 
 # ====================
 # base models, used by both db models and api models
@@ -61,7 +61,7 @@ class Course(CourseBase, table=True):
 
 
 class Buoy(BuoyBase, table=True):
-    course_id: str = Field(foreign_key="course.name")
+    course_id: str = Field(foreign_key="course.name", primary_key=True)
 
 
 class BuoyJury(BuoyBase, table=True):
