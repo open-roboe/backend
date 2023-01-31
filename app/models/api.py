@@ -37,6 +37,27 @@ class RoboaResponse(database.RoboaBase):
 class RoboaGet(BaseModel):
     name: str
 
+# ====================
+# Jury
+
+class JuryCreate(BaseModel):
+    description: Optional[str]
+    color: Optional[int]
+    lat: int
+    lon: int
+
+
+class JuryUpdate(BaseModel):
+    description: Optional[str]
+    color: Optional[int]
+    lat: Optional[int]
+    lon: Optional[int]
+
+class JuryResponse(BaseModel):
+    description: Optional[str] = ""
+    color: Optional[int] = 0
+    lat: int
+    lon: int
 
 # ====================
 # Buoy
@@ -50,7 +71,7 @@ class BuoyCreate(BaseModel):
 
 
 class BuoyUpdate(BaseModel):
-    id: str
+    id: int
     description: Optional[str]
     color: Optional[int]
     lat: Optional[int]
@@ -65,22 +86,20 @@ class BuoyResponse(database.BuoyBase):
 class CourseCreate(BaseModel):
     name: str
     type: str
-    jury: BuoyCreate
+    jury: JuryCreate
     buoys: List[BuoyCreate]
 
 
 class CourseUpdate(BaseModel):
     name: str
     type: Optional[str]
-    jury: BuoyUpdate
+    jury: JuryUpdate
     buoys: List[BuoyUpdate]
 
 
 class CourseResponse(database.CourseBase):
-    name: str
-    type: str
     #these are not database fields!
-    jury: database.BuoyJury
+    jury: JuryResponse
     buoys: List[database.Buoy]
 
 

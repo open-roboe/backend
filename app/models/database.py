@@ -30,7 +30,7 @@ class RoboaBase(SQLModel):
 
 
 class BuoyBase(SQLModel):
-    id: str = Field(primary_key=True)
+    id: int = Field(primary_key=True)
     description: Optional[str] = ""
     color: Optional[int] = 0
     lat: int
@@ -41,7 +41,6 @@ class CourseBase(SQLModel):
     creation_date: int
     type: str
     jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
-
 
 # ====================
 # database models. It's not recomended to
@@ -65,4 +64,4 @@ class Buoy(BuoyBase, table=True):
 
 
 class BuoyJury(BuoyBase, table=True):
-    pass
+    id: str = Field(primary_key=True)

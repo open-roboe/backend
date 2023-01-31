@@ -1,4 +1,5 @@
 import time
+import uuid
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -37,12 +38,14 @@ async def add_course(course_create: api.CourseCreate,
         type=course_create.type,
     )
     # create the jury
+    jury_id = str(uuid.uuid4())
     jury_create_dict = course_create.jury.dict(exclude_unset=True)
     jury = database.BuoyJury(
-        **jury_create_dict
+        **jury_create_dict,
+        id=jury_id
     )
     # update the course with the jury id
-    course.jury_id = jury.id
+    course.jury_id = jury_id
     # create all the buoys
     for buoy_create in course_create.buoys:
         buoy = database.Buoy(
