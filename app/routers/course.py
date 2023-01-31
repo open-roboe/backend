@@ -111,6 +111,25 @@ async def update_course(
     return course
 
 
+@router.delete("/{course_name}")
+async def update_course(
+        course_name: str,
+        admin_user=Depends(get_current_admin_user),
+        session = Depends(get_session)
+):
+    course: database.Course = session.get(database.Course, course_name)
+    if not course:
+        raise HTTPException(status_code=404, detail="course_not_found")
+    jury = course.jury
+    buoys = course.buoys
+    #TODO: replace this manual work with the sqlalchemy relationship deletion features
+    for buoy in buoys:
+        session.delete(buoy)
+    session.delete(course)
+    session.delete(jury)
+    session.commit()
+    return "ok"
+
 @router.post("/buoy/{buoy_id}/assign_roboa")
 async def buoy_assign_roboa(
         buoy_id: str,
