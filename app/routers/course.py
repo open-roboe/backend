@@ -60,7 +60,7 @@ async def add_course(course_create: api.CourseCreate,
         session.commit()
         session.refresh(course)
     except IntegrityError:
-        raise HTTPException(status_code=400, detail="course_or_jury_already_exist")
+        raise HTTPException(status_code=400, detail="course_already_exist")
     return course
 
 
@@ -82,8 +82,12 @@ async def update_course(
     jury = course.jury
     buoys = course.buoys
     #modify the course
-    if course_update.type:
-        course.type = course_update.type
+    course_update_dict = course_update.dict(exclude_unset=True)
+    for key, value in course_update_dict.items():
+        # NOTE: this 'merge blocklist' is dangerous: since the keys are hardcoded in a string they will not
+        # be detected by the linter if the class attributes are changed in the future
+        if key not in ['jury', 'buoys']:
+            setattr(course, key, value)
     #modify the jury
     saved_jury_id = jury.id
     jury_update_dict = course_update.jury.dict(exclude_unset=True)

@@ -83,21 +83,19 @@ class BuoyResponse(database.BuoyBase):
 # ====================
 # Course
 
-class CourseCreate(BaseModel):
-    name: str
-    type: str
+class CourseCreate(database.CourseBase):
     jury: JuryCreate
     buoys: List[BuoyCreate]
 
 
-class CourseUpdate(BaseModel):
+class CourseUpdate(database.CourseBase):
     name: str
     type: Optional[str]
     jury: JuryUpdate
     buoys: List[BuoyUpdate]
 
-
 class CourseResponse(database.CourseBase):
+    creation_date: int
     #these are not database fields!
     jury: JuryResponse
     buoys: List[database.Buoy]

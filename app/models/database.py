@@ -38,8 +38,14 @@ class BuoyBase(SQLModel):
 
 class CourseBase(SQLModel):
     name: str = Field(primary_key=True)
-    creation_date: int
     type: str
+    # all the optional data
+    compass_degrees: Optional[int]
+    start_line_len: Optional[int]
+    break_distance: Optional[int]
+    bottom_buoy: Optional[int]
+    gate: Optional[bool]
+    second_mark_distance: Optional[int]
 
 # ====================
 # database models. It's not recomended to
@@ -54,6 +60,7 @@ class Roboa(RoboaBase, table=True):
 
 
 class Course(CourseBase, table=True):
+    creation_date: int
     jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
     jury: Optional["BuoyJury"] = Relationship()
     buoys: List["Buoy"] = Relationship()
