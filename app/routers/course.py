@@ -130,39 +130,32 @@ async def update_course(
     session.commit()
     return "ok"
 
-@router.post("/buoy/{buoy_id}/assign_roboa")
+@router.post("/{course_name}/buoy/{buoy_id}/assign_roboa")
 async def buoy_assign_roboa(
-        buoy_id: str,
+        course_name: str,
+        buoy_id: int,
         roboa_get: api.RoboaGet,
         admin_user=Depends(get_current_admin_user),
         session: Session = Depends(get_session)
 ):
     """
-    assign a roboa to a buoy. This also works for buoys of type jury.
-    Just pass the id of the jury in the buoy_id parameter
+    assign a roboa to a buoy. As of now it is not possible to assign a roboa to the jury buoy
 
     This operation will not cause the roboa to move!
     If you want to move the roboa use the roboa/move endpoint
-
-    TECHNICAL NOTES: this endpoint modifies the assigned_buoy row in the roboa table.
-    assigned buoy has a foreign key of type buoy, not of type jury.
-    when a roboa is a ssigned to a jury we are breaking that constraint.
-    This won't throw errors because sqlite does not enforce foreign keys by default,
-    but it's also a problem for us, since we will have to handle manually the
-    fact that an assigned id can be a buoy or a jury.
-    Solution: rewrite the database schema, get rid of the jury table. everything is a buoy
     """
     # get the roboa
     roboa = session.get(database.Roboa, roboa_get.name)
     if roboa is None:
         raise HTTPException(status_code=404, detail="roboa_not_found")
     # get the buoy
-    buoy = session.get(database.Buoy, buoy_id)
+    buoy = session.exec(
+        select(database.Buoy).where(
+            database.Buoy.id == buoy_id, database.Buoy.course_id == course_name
+        )
+    ).first()
     if buoy is None:
-        # maybe it's not a buoy, it's a jury. get the jury
-        jury = session.get(database.BuoyJury, buoy_id)
-        if jury is None:
-            raise HTTPException(status_code=404, detail="roboa_not_found")
+        raise HTTPException(status_code=404, detail="buoy_not_found")
 
     roboa.assigned_buoy = buoy_id
     session.add(roboa)
