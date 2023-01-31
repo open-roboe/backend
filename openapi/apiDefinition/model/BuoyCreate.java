@@ -23,11 +23,12 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * BuoyCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T15:49:23.851875Z[Etc/UTC]")
 public class BuoyCreate {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -43,11 +44,11 @@ public class BuoyCreate {
 
   public static final String SERIALIZED_NAME_LAT = "lat";
   @SerializedName(SERIALIZED_NAME_LAT)
-  private Integer lat;
+  private BigDecimal lat;
 
   public static final String SERIALIZED_NAME_LON = "lon";
   @SerializedName(SERIALIZED_NAME_LON)
-  private Integer lon;
+  private BigDecimal lon;
 
   public BuoyCreate() {
   }
@@ -121,7 +122,7 @@ public class BuoyCreate {
   }
 
 
-  public BuoyCreate lat(Integer lat) {
+  public BuoyCreate lat(BigDecimal lat) {
     
     this.lat = lat;
     return this;
@@ -134,17 +135,17 @@ public class BuoyCreate {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public Integer getLat() {
+  public BigDecimal getLat() {
     return lat;
   }
 
 
-  public void setLat(Integer lat) {
+  public void setLat(BigDecimal lat) {
     this.lat = lat;
   }
 
 
-  public BuoyCreate lon(Integer lon) {
+  public BuoyCreate lon(BigDecimal lon) {
     
     this.lon = lon;
     return this;
@@ -157,12 +158,12 @@ public class BuoyCreate {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public Integer getLon() {
+  public BigDecimal getLon() {
     return lon;
   }
 
 
-  public void setLon(Integer lon) {
+  public void setLon(BigDecimal lon) {
     this.lon = lon;
   }
 

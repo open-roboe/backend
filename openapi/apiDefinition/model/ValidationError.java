@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ValidationError
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T15:49:23.851875Z[Etc/UTC]")
 public class ValidationError {
   public static final String SERIALIZED_NAME_LOC = "loc";
   @SerializedName(SERIALIZED_NAME_LOC)
