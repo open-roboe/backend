@@ -34,9 +34,13 @@ async def add_course(course_create: api.CourseCreate,
     # create the course
     course = database.Course(
         creation_date=time.time(),
-        name=course_create.name,
-        type=course_create.type,
     )
+    course_create_dict = course_create.dict(exclude_unset=True)
+    for key, value in course_create_dict.items():
+        # NOTE: this 'merge blocklist' is dangerous: since the keys are hardcoded in a string they will not
+        # be detected by the linter if the class attributes are changed in the future
+        if key not in ['jury', 'buoys']:
+            setattr(course, key, value)
     # create the jury
     jury_id = str(uuid.uuid4())
     jury_create_dict = course_create.jury.dict(exclude_unset=True)
