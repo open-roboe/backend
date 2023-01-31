@@ -27,11 +27,11 @@ import java.io.IOException;
 /**
  * Buoy
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
 public class Buoy {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  private String id;
+  private Integer id;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
@@ -56,7 +56,7 @@ public class Buoy {
   public Buoy() {
   }
 
-  public Buoy id(String id) {
+  public Buoy id(Integer id) {
     
     this.id = id;
     return this;
@@ -69,12 +69,12 @@ public class Buoy {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public String getId() {
+  public Integer getId() {
     return id;
   }
 
 
-  public void setId(String id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

@@ -37,7 +37,8 @@ public interface CourseApi {
 
   /**
    * Buoy Assign Roboa
-   * assign a roboa to a buoy. This also works for buoys of type jury. Just pass the id of the jury in the buoy_id parameter  This operation will not cause the roboa to move! If you want to move the roboa use the roboa/move endpoint  TECHNICAL NOTES: this endpoint modifies the assigned_buoy row in the roboa table. assigned buoy has a foreign key of type buoy, not of type jury. when a roboa is a ssigned to a jury we are breaking that constraint. This won&#39;t throw errors because sqlite does not enforce foreign keys by default, but it&#39;s also a problem for us, since we will have to handle manually the fact that an assigned id can be a buoy or a jury. Solution: rewrite the database schema, get rid of the jury table. everything is a buoy
+   * assign a roboa to a buoy. As of now it is not possible to assign a roboa to the jury buoy  This operation will not cause the roboa to move! If you want to move the roboa use the roboa/move endpoint
+   * @param courseName  (required)
    * @param buoyId  (required)
    * @param roboaGet  (required)
    * @return Call&lt;Object&gt;
@@ -45,9 +46,9 @@ public interface CourseApi {
   @Headers({
     "Content-Type:application/json"
   })
-  @POST("api/course/buoy/{buoy_id}/assign_roboa")
-  Call<Object> buoyAssignRoboaApiCourseBuoyBuoyIdAssignRoboaPost(
-    @retrofit2.http.Path("buoy_id") String buoyId, @retrofit2.http.Body RoboaGet roboaGet
+  @POST("api/course/{course_name}/buoy/{buoy_id}/assign_roboa")
+  Call<Object> buoyAssignRoboaApiCourseCourseNameBuoyBuoyIdAssignRoboaPost(
+    @retrofit2.http.Path("course_name") String courseName, @retrofit2.http.Path("buoy_id") Integer buoyId, @retrofit2.http.Body RoboaGet roboaGet
   );
 
   /**
@@ -58,6 +59,17 @@ public interface CourseApi {
   @GET("api/course/")
   Call<List<CourseResponse>> getAllCoursesApiCourseGet();
     
+
+  /**
+   * Update Course
+   * 
+   * @param courseName  (required)
+   * @return Call&lt;Object&gt;
+   */
+  @DELETE("api/course/{course_name}")
+  Call<Object> updateCourseApiCourseCourseNameDelete(
+    @retrofit2.http.Path("course_name") String courseName
+  );
 
   /**
    * Update Course

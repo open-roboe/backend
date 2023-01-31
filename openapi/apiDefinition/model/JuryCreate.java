@@ -25,14 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * BuoyUpdate
+ * JuryCreate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
-public class BuoyUpdate {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Integer id;
-
+public class JuryCreate {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
@@ -49,33 +45,10 @@ public class BuoyUpdate {
   @SerializedName(SERIALIZED_NAME_LON)
   private Integer lon;
 
-  public BuoyUpdate() {
+  public JuryCreate() {
   }
 
-  public BuoyUpdate id(Integer id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public Integer getId() {
-    return id;
-  }
-
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
-  public BuoyUpdate description(String description) {
+  public JuryCreate description(String description) {
     
     this.description = description;
     return this;
@@ -98,7 +71,7 @@ public class BuoyUpdate {
   }
 
 
-  public BuoyUpdate color(Integer color) {
+  public JuryCreate color(Integer color) {
     
     this.color = color;
     return this;
@@ -121,7 +94,7 @@ public class BuoyUpdate {
   }
 
 
-  public BuoyUpdate lat(Integer lat) {
+  public JuryCreate lat(Integer lat) {
     
     this.lat = lat;
     return this;
@@ -131,8 +104,8 @@ public class BuoyUpdate {
    * Get lat
    * @return lat
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
 
   public Integer getLat() {
     return lat;
@@ -144,7 +117,7 @@ public class BuoyUpdate {
   }
 
 
-  public BuoyUpdate lon(Integer lon) {
+  public JuryCreate lon(Integer lon) {
     
     this.lon = lon;
     return this;
@@ -154,8 +127,8 @@ public class BuoyUpdate {
    * Get lon
    * @return lon
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
 
   public Integer getLon() {
     return lon;
@@ -175,24 +148,22 @@ public class BuoyUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BuoyUpdate buoyUpdate = (BuoyUpdate) o;
-    return Objects.equals(this.id, buoyUpdate.id) &&
-        Objects.equals(this.description, buoyUpdate.description) &&
-        Objects.equals(this.color, buoyUpdate.color) &&
-        Objects.equals(this.lat, buoyUpdate.lat) &&
-        Objects.equals(this.lon, buoyUpdate.lon);
+    JuryCreate juryCreate = (JuryCreate) o;
+    return Objects.equals(this.description, juryCreate.description) &&
+        Objects.equals(this.color, juryCreate.color) &&
+        Objects.equals(this.lat, juryCreate.lat) &&
+        Objects.equals(this.lon, juryCreate.lon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, description, color, lat, lon);
+    return Objects.hash(description, color, lat, lon);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BuoyUpdate {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class JuryCreate {\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    color: ").append(toIndentedString(color)).append("\n");
     sb.append("    lat: ").append(toIndentedString(lat)).append("\n");

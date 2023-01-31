@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * PollResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
 public class PollResponse {
   public static final String SERIALIZED_NAME_COURSES = "courses";
   @SerializedName(SERIALIZED_NAME_COURSES)

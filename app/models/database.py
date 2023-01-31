@@ -3,7 +3,7 @@
 
 from typing import Optional, List
 
-from sqlmodel import Field, SQLModel, create_engine, Relationship
+from sqlmodel import Field, SQLModel, Relationship
 
 # ====================
 # base models, used by both db models and api models
@@ -30,7 +30,7 @@ class RoboaBase(SQLModel):
 
 
 class BuoyBase(SQLModel):
-    id: str = Field(primary_key=True)
+    id: int = Field(primary_key=True)
     description: Optional[str] = ""
     color: Optional[int] = 0
     lat: int
@@ -38,10 +38,14 @@ class BuoyBase(SQLModel):
 
 class CourseBase(SQLModel):
     name: str = Field(primary_key=True)
-    creation_date: int
     type: str
-    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
-
+    # all the optional data
+    compass_degrees: Optional[int]
+    start_line_len: Optional[int]
+    break_distance: Optional[int]
+    bottom_buoy: Optional[int]
+    gate: Optional[bool]
+    second_mark_distance: Optional[int]
 
 # ====================
 # database models. It's not recomended to
@@ -56,13 +60,15 @@ class Roboa(RoboaBase, table=True):
 
 
 class Course(CourseBase, table=True):
+    creation_date: int
+    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
     jury: Optional["BuoyJury"] = Relationship()
     buoys: List["Buoy"] = Relationship()
 
 
 class Buoy(BuoyBase, table=True):
-    course_id: str = Field(foreign_key="course.name")
+    course_id: str = Field(foreign_key="course.name", primary_key=True)
 
 
 class BuoyJury(BuoyBase, table=True):
-    pass
+    id: str = Field(primary_key=True)

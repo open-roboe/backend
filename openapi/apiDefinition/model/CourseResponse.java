@@ -16,7 +16,7 @@ package com.example.roboapp2.api.definition.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.example.roboapp2.api.definition.model.Buoy;
-import com.example.roboapp2.api.definition.model.BuoyJury;
+import com.example.roboapp2.api.definition.model.JuryResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -31,27 +31,47 @@ import java.util.List;
 /**
  * CourseResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
 public class CourseResponse {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String SERIALIZED_NAME_CREATION_DATE = "creation_date";
-  @SerializedName(SERIALIZED_NAME_CREATION_DATE)
-  private Integer creationDate;
-
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
   private String type;
 
-  public static final String SERIALIZED_NAME_JURY_ID = "jury_id";
-  @SerializedName(SERIALIZED_NAME_JURY_ID)
-  private String juryId;
+  public static final String SERIALIZED_NAME_COMPASS_DEGREES = "compass_degrees";
+  @SerializedName(SERIALIZED_NAME_COMPASS_DEGREES)
+  private Integer compassDegrees;
+
+  public static final String SERIALIZED_NAME_START_LINE_LEN = "start_line_len";
+  @SerializedName(SERIALIZED_NAME_START_LINE_LEN)
+  private Integer startLineLen;
+
+  public static final String SERIALIZED_NAME_BREAK_DISTANCE = "break_distance";
+  @SerializedName(SERIALIZED_NAME_BREAK_DISTANCE)
+  private Integer breakDistance;
+
+  public static final String SERIALIZED_NAME_BOTTOM_BUOY = "bottom_buoy";
+  @SerializedName(SERIALIZED_NAME_BOTTOM_BUOY)
+  private Integer bottomBuoy;
+
+  public static final String SERIALIZED_NAME_GATE = "gate";
+  @SerializedName(SERIALIZED_NAME_GATE)
+  private Boolean gate;
+
+  public static final String SERIALIZED_NAME_SECOND_MARK_DISTANCE = "second_mark_distance";
+  @SerializedName(SERIALIZED_NAME_SECOND_MARK_DISTANCE)
+  private Integer secondMarkDistance;
+
+  public static final String SERIALIZED_NAME_CREATION_DATE = "creation_date";
+  @SerializedName(SERIALIZED_NAME_CREATION_DATE)
+  private Integer creationDate;
 
   public static final String SERIALIZED_NAME_JURY = "jury";
   @SerializedName(SERIALIZED_NAME_JURY)
-  private BuoyJury jury;
+  private JuryResponse jury;
 
   public static final String SERIALIZED_NAME_BUOYS = "buoys";
   @SerializedName(SERIALIZED_NAME_BUOYS)
@@ -83,29 +103,6 @@ public class CourseResponse {
   }
 
 
-  public CourseResponse creationDate(Integer creationDate) {
-    
-    this.creationDate = creationDate;
-    return this;
-  }
-
-   /**
-   * Get creationDate
-   * @return creationDate
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public Integer getCreationDate() {
-    return creationDate;
-  }
-
-
-  public void setCreationDate(Integer creationDate) {
-    this.creationDate = creationDate;
-  }
-
-
   public CourseResponse type(String type) {
     
     this.type = type;
@@ -129,30 +126,168 @@ public class CourseResponse {
   }
 
 
-  public CourseResponse juryId(String juryId) {
+  public CourseResponse compassDegrees(Integer compassDegrees) {
     
-    this.juryId = juryId;
+    this.compassDegrees = compassDegrees;
     return this;
   }
 
    /**
-   * Get juryId
-   * @return juryId
+   * Get compassDegrees
+   * @return compassDegrees
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public String getJuryId() {
-    return juryId;
+  public Integer getCompassDegrees() {
+    return compassDegrees;
   }
 
 
-  public void setJuryId(String juryId) {
-    this.juryId = juryId;
+  public void setCompassDegrees(Integer compassDegrees) {
+    this.compassDegrees = compassDegrees;
   }
 
 
-  public CourseResponse jury(BuoyJury jury) {
+  public CourseResponse startLineLen(Integer startLineLen) {
+    
+    this.startLineLen = startLineLen;
+    return this;
+  }
+
+   /**
+   * Get startLineLen
+   * @return startLineLen
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getStartLineLen() {
+    return startLineLen;
+  }
+
+
+  public void setStartLineLen(Integer startLineLen) {
+    this.startLineLen = startLineLen;
+  }
+
+
+  public CourseResponse breakDistance(Integer breakDistance) {
+    
+    this.breakDistance = breakDistance;
+    return this;
+  }
+
+   /**
+   * Get breakDistance
+   * @return breakDistance
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getBreakDistance() {
+    return breakDistance;
+  }
+
+
+  public void setBreakDistance(Integer breakDistance) {
+    this.breakDistance = breakDistance;
+  }
+
+
+  public CourseResponse bottomBuoy(Integer bottomBuoy) {
+    
+    this.bottomBuoy = bottomBuoy;
+    return this;
+  }
+
+   /**
+   * Get bottomBuoy
+   * @return bottomBuoy
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getBottomBuoy() {
+    return bottomBuoy;
+  }
+
+
+  public void setBottomBuoy(Integer bottomBuoy) {
+    this.bottomBuoy = bottomBuoy;
+  }
+
+
+  public CourseResponse gate(Boolean gate) {
+    
+    this.gate = gate;
+    return this;
+  }
+
+   /**
+   * Get gate
+   * @return gate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getGate() {
+    return gate;
+  }
+
+
+  public void setGate(Boolean gate) {
+    this.gate = gate;
+  }
+
+
+  public CourseResponse secondMarkDistance(Integer secondMarkDistance) {
+    
+    this.secondMarkDistance = secondMarkDistance;
+    return this;
+  }
+
+   /**
+   * Get secondMarkDistance
+   * @return secondMarkDistance
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getSecondMarkDistance() {
+    return secondMarkDistance;
+  }
+
+
+  public void setSecondMarkDistance(Integer secondMarkDistance) {
+    this.secondMarkDistance = secondMarkDistance;
+  }
+
+
+  public CourseResponse creationDate(Integer creationDate) {
+    
+    this.creationDate = creationDate;
+    return this;
+  }
+
+   /**
+   * Get creationDate
+   * @return creationDate
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+
+  public Integer getCreationDate() {
+    return creationDate;
+  }
+
+
+  public void setCreationDate(Integer creationDate) {
+    this.creationDate = creationDate;
+  }
+
+
+  public CourseResponse jury(JuryResponse jury) {
     
     this.jury = jury;
     return this;
@@ -165,12 +300,12 @@ public class CourseResponse {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public BuoyJury getJury() {
+  public JuryResponse getJury() {
     return jury;
   }
 
 
-  public void setJury(BuoyJury jury) {
+  public void setJury(JuryResponse jury) {
     this.jury = jury;
   }
 
@@ -213,16 +348,21 @@ public class CourseResponse {
     }
     CourseResponse courseResponse = (CourseResponse) o;
     return Objects.equals(this.name, courseResponse.name) &&
-        Objects.equals(this.creationDate, courseResponse.creationDate) &&
         Objects.equals(this.type, courseResponse.type) &&
-        Objects.equals(this.juryId, courseResponse.juryId) &&
+        Objects.equals(this.compassDegrees, courseResponse.compassDegrees) &&
+        Objects.equals(this.startLineLen, courseResponse.startLineLen) &&
+        Objects.equals(this.breakDistance, courseResponse.breakDistance) &&
+        Objects.equals(this.bottomBuoy, courseResponse.bottomBuoy) &&
+        Objects.equals(this.gate, courseResponse.gate) &&
+        Objects.equals(this.secondMarkDistance, courseResponse.secondMarkDistance) &&
+        Objects.equals(this.creationDate, courseResponse.creationDate) &&
         Objects.equals(this.jury, courseResponse.jury) &&
         Objects.equals(this.buoys, courseResponse.buoys);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, creationDate, type, juryId, jury, buoys);
+    return Objects.hash(name, type, compassDegrees, startLineLen, breakDistance, bottomBuoy, gate, secondMarkDistance, creationDate, jury, buoys);
   }
 
   @Override
@@ -230,9 +370,14 @@ public class CourseResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class CourseResponse {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    juryId: ").append(toIndentedString(juryId)).append("\n");
+    sb.append("    compassDegrees: ").append(toIndentedString(compassDegrees)).append("\n");
+    sb.append("    startLineLen: ").append(toIndentedString(startLineLen)).append("\n");
+    sb.append("    breakDistance: ").append(toIndentedString(breakDistance)).append("\n");
+    sb.append("    bottomBuoy: ").append(toIndentedString(bottomBuoy)).append("\n");
+    sb.append("    gate: ").append(toIndentedString(gate)).append("\n");
+    sb.append("    secondMarkDistance: ").append(toIndentedString(secondMarkDistance)).append("\n");
+    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    jury: ").append(toIndentedString(jury)).append("\n");
     sb.append("    buoys: ").append(toIndentedString(buoys)).append("\n");
     sb.append("}");

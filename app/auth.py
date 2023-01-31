@@ -3,6 +3,7 @@ from fastapi import Depends, status, HTTPException
 from jose import JWTError, jwt
 from fastapi.logger import logger
 from argon2 import PasswordHasher
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import Field, Session, select
 import time, os
 from datetime import datetime, timedelta
@@ -71,6 +72,8 @@ def register_user(user: api.UserCreate) -> None:
             session.add(new_user)
             session.commit()
             session.refresh(new_user)
+    except IntegrityError:
+        raise HTTPException(status_code=400, detail="user_already_exists")
     except Exception as e:
         logger.error(e)
         raise HTTPException(status_code=500, detail="registration_failed")
