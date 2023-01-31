@@ -25,13 +25,14 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * CourseResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T15:49:23.851875Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T17:04:24.839244Z[Etc/UTC]")
 public class CourseResponse {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -47,15 +48,19 @@ public class CourseResponse {
 
   public static final String SERIALIZED_NAME_START_LINE_LEN = "start_line_len";
   @SerializedName(SERIALIZED_NAME_START_LINE_LEN)
-  private Integer startLineLen;
+  private BigDecimal startLineLen;
 
   public static final String SERIALIZED_NAME_BREAK_DISTANCE = "break_distance";
   @SerializedName(SERIALIZED_NAME_BREAK_DISTANCE)
-  private Integer breakDistance;
+  private BigDecimal breakDistance;
+
+  public static final String SERIALIZED_NAME_COURSE_LENGTH = "course_length";
+  @SerializedName(SERIALIZED_NAME_COURSE_LENGTH)
+  private BigDecimal courseLength;
 
   public static final String SERIALIZED_NAME_BOTTOM_BUOY = "bottom_buoy";
   @SerializedName(SERIALIZED_NAME_BOTTOM_BUOY)
-  private Integer bottomBuoy;
+  private Boolean bottomBuoy;
 
   public static final String SERIALIZED_NAME_GATE = "gate";
   @SerializedName(SERIALIZED_NAME_GATE)
@@ -63,7 +68,7 @@ public class CourseResponse {
 
   public static final String SERIALIZED_NAME_SECOND_MARK_DISTANCE = "second_mark_distance";
   @SerializedName(SERIALIZED_NAME_SECOND_MARK_DISTANCE)
-  private Integer secondMarkDistance;
+  private BigDecimal secondMarkDistance;
 
   public static final String SERIALIZED_NAME_CREATION_DATE = "creation_date";
   @SerializedName(SERIALIZED_NAME_CREATION_DATE)
@@ -149,7 +154,7 @@ public class CourseResponse {
   }
 
 
-  public CourseResponse startLineLen(Integer startLineLen) {
+  public CourseResponse startLineLen(BigDecimal startLineLen) {
     
     this.startLineLen = startLineLen;
     return this;
@@ -162,17 +167,17 @@ public class CourseResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getStartLineLen() {
+  public BigDecimal getStartLineLen() {
     return startLineLen;
   }
 
 
-  public void setStartLineLen(Integer startLineLen) {
+  public void setStartLineLen(BigDecimal startLineLen) {
     this.startLineLen = startLineLen;
   }
 
 
-  public CourseResponse breakDistance(Integer breakDistance) {
+  public CourseResponse breakDistance(BigDecimal breakDistance) {
     
     this.breakDistance = breakDistance;
     return this;
@@ -185,17 +190,40 @@ public class CourseResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getBreakDistance() {
+  public BigDecimal getBreakDistance() {
     return breakDistance;
   }
 
 
-  public void setBreakDistance(Integer breakDistance) {
+  public void setBreakDistance(BigDecimal breakDistance) {
     this.breakDistance = breakDistance;
   }
 
 
-  public CourseResponse bottomBuoy(Integer bottomBuoy) {
+  public CourseResponse courseLength(BigDecimal courseLength) {
+    
+    this.courseLength = courseLength;
+    return this;
+  }
+
+   /**
+   * Get courseLength
+   * @return courseLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public BigDecimal getCourseLength() {
+    return courseLength;
+  }
+
+
+  public void setCourseLength(BigDecimal courseLength) {
+    this.courseLength = courseLength;
+  }
+
+
+  public CourseResponse bottomBuoy(Boolean bottomBuoy) {
     
     this.bottomBuoy = bottomBuoy;
     return this;
@@ -208,12 +236,12 @@ public class CourseResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getBottomBuoy() {
+  public Boolean getBottomBuoy() {
     return bottomBuoy;
   }
 
 
-  public void setBottomBuoy(Integer bottomBuoy) {
+  public void setBottomBuoy(Boolean bottomBuoy) {
     this.bottomBuoy = bottomBuoy;
   }
 
@@ -241,7 +269,7 @@ public class CourseResponse {
   }
 
 
-  public CourseResponse secondMarkDistance(Integer secondMarkDistance) {
+  public CourseResponse secondMarkDistance(BigDecimal secondMarkDistance) {
     
     this.secondMarkDistance = secondMarkDistance;
     return this;
@@ -254,12 +282,12 @@ public class CourseResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getSecondMarkDistance() {
+  public BigDecimal getSecondMarkDistance() {
     return secondMarkDistance;
   }
 
 
-  public void setSecondMarkDistance(Integer secondMarkDistance) {
+  public void setSecondMarkDistance(BigDecimal secondMarkDistance) {
     this.secondMarkDistance = secondMarkDistance;
   }
 
@@ -352,6 +380,7 @@ public class CourseResponse {
         Objects.equals(this.compassDegrees, courseResponse.compassDegrees) &&
         Objects.equals(this.startLineLen, courseResponse.startLineLen) &&
         Objects.equals(this.breakDistance, courseResponse.breakDistance) &&
+        Objects.equals(this.courseLength, courseResponse.courseLength) &&
         Objects.equals(this.bottomBuoy, courseResponse.bottomBuoy) &&
         Objects.equals(this.gate, courseResponse.gate) &&
         Objects.equals(this.secondMarkDistance, courseResponse.secondMarkDistance) &&
@@ -362,7 +391,7 @@ public class CourseResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, type, compassDegrees, startLineLen, breakDistance, bottomBuoy, gate, secondMarkDistance, creationDate, jury, buoys);
+    return Objects.hash(name, type, compassDegrees, startLineLen, breakDistance, courseLength, bottomBuoy, gate, secondMarkDistance, creationDate, jury, buoys);
   }
 
   @Override
@@ -374,6 +403,7 @@ public class CourseResponse {
     sb.append("    compassDegrees: ").append(toIndentedString(compassDegrees)).append("\n");
     sb.append("    startLineLen: ").append(toIndentedString(startLineLen)).append("\n");
     sb.append("    breakDistance: ").append(toIndentedString(breakDistance)).append("\n");
+    sb.append("    courseLength: ").append(toIndentedString(courseLength)).append("\n");
     sb.append("    bottomBuoy: ").append(toIndentedString(bottomBuoy)).append("\n");
     sb.append("    gate: ").append(toIndentedString(gate)).append("\n");
     sb.append("    secondMarkDistance: ").append(toIndentedString(secondMarkDistance)).append("\n");

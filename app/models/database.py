@@ -41,11 +41,12 @@ class CourseBase(SQLModel):
     type: str
     # all the optional data
     compass_degrees: Optional[int]
-    start_line_len: Optional[int]
-    break_distance: Optional[int]
-    bottom_buoy: Optional[int]
+    start_line_len: Optional[float]
+    break_distance: Optional[float]
+    course_length: Optional[float]
+    bottom_buoy: Optional[bool]
     gate: Optional[bool]
-    second_mark_distance: Optional[int]
+    second_mark_distance: Optional[float]
 
 # ====================
 # database models. It's not recomended to
