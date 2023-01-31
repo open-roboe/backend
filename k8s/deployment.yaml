@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: roboapp
-          image: ghcr.io/open-roboe/backend:sha-814a1fa26fc3caf20dc6c5faa25c8860903e4363
+          image: ghcr.io/open-roboe/backend:sha-1971180baa223fc5b125bde93b1e95f766edc2cb
           env:
             - name: SQLITE_FILE
               value: test.db
