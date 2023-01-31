@@ -43,21 +43,21 @@ class RoboaGet(BaseModel):
 class JuryCreate(BaseModel):
     description: Optional[str]
     color: Optional[int]
-    lat: int
-    lon: int
+    lat: float
+    lon: float
 
 
 class JuryUpdate(BaseModel):
     description: Optional[str]
     color: Optional[int]
-    lat: Optional[int]
-    lon: Optional[int]
+    lat: Optional[float]
+    lon: Optional[float]
 
 class JuryResponse(BaseModel):
     description: Optional[str] = ""
     color: Optional[int] = 0
-    lat: int
-    lon: int
+    lat: float
+    lon: float
 
 # ====================
 # Buoy
@@ -66,16 +66,16 @@ class BuoyCreate(BaseModel):
     id: int
     description: Optional[str]
     color: Optional[int]
-    lat: int
-    lon: int
+    lat: float
+    lon: float
 
 
 class BuoyUpdate(BaseModel):
     id: int
     description: Optional[str]
     color: Optional[int]
-    lat: Optional[int]
-    lon: Optional[int]
+    lat: Optional[float]
+    lon: Optional[float]
 
 class BuoyResponse(database.BuoyBase):
     pass
