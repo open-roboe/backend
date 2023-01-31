@@ -33,8 +33,8 @@ class BuoyBase(SQLModel):
     id: int = Field(primary_key=True)
     description: Optional[str] = ""
     color: Optional[int] = 0
-    lat: int
-    lon: int
+    lat: float
+    lon: float
 
 class CourseBase(SQLModel):
     name: str = Field(primary_key=True)
