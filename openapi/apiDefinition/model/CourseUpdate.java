@@ -16,6 +16,7 @@ package com.example.roboapp2.api.definition.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.example.roboapp2.api.definition.model.BuoyUpdate;
+import com.example.roboapp2.api.definition.model.JuryUpdate;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * CourseUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-29T15:35:34.288146Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T03:30:17.483114Z[Etc/UTC]")
 public class CourseUpdate {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -40,9 +41,33 @@ public class CourseUpdate {
   @SerializedName(SERIALIZED_NAME_TYPE)
   private String type;
 
+  public static final String SERIALIZED_NAME_COMPASS_DEGREES = "compass_degrees";
+  @SerializedName(SERIALIZED_NAME_COMPASS_DEGREES)
+  private Integer compassDegrees;
+
+  public static final String SERIALIZED_NAME_START_LINE_LEN = "start_line_len";
+  @SerializedName(SERIALIZED_NAME_START_LINE_LEN)
+  private Integer startLineLen;
+
+  public static final String SERIALIZED_NAME_BREAK_DISTANCE = "break_distance";
+  @SerializedName(SERIALIZED_NAME_BREAK_DISTANCE)
+  private Integer breakDistance;
+
+  public static final String SERIALIZED_NAME_BOTTOM_BUOY = "bottom_buoy";
+  @SerializedName(SERIALIZED_NAME_BOTTOM_BUOY)
+  private Integer bottomBuoy;
+
+  public static final String SERIALIZED_NAME_GATE = "gate";
+  @SerializedName(SERIALIZED_NAME_GATE)
+  private Boolean gate;
+
+  public static final String SERIALIZED_NAME_SECOND_MARK_DISTANCE = "second_mark_distance";
+  @SerializedName(SERIALIZED_NAME_SECOND_MARK_DISTANCE)
+  private Integer secondMarkDistance;
+
   public static final String SERIALIZED_NAME_JURY = "jury";
   @SerializedName(SERIALIZED_NAME_JURY)
-  private BuoyUpdate jury;
+  private JuryUpdate jury;
 
   public static final String SERIALIZED_NAME_BUOYS = "buoys";
   @SerializedName(SERIALIZED_NAME_BUOYS)
@@ -97,7 +122,145 @@ public class CourseUpdate {
   }
 
 
-  public CourseUpdate jury(BuoyUpdate jury) {
+  public CourseUpdate compassDegrees(Integer compassDegrees) {
+    
+    this.compassDegrees = compassDegrees;
+    return this;
+  }
+
+   /**
+   * Get compassDegrees
+   * @return compassDegrees
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getCompassDegrees() {
+    return compassDegrees;
+  }
+
+
+  public void setCompassDegrees(Integer compassDegrees) {
+    this.compassDegrees = compassDegrees;
+  }
+
+
+  public CourseUpdate startLineLen(Integer startLineLen) {
+    
+    this.startLineLen = startLineLen;
+    return this;
+  }
+
+   /**
+   * Get startLineLen
+   * @return startLineLen
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getStartLineLen() {
+    return startLineLen;
+  }
+
+
+  public void setStartLineLen(Integer startLineLen) {
+    this.startLineLen = startLineLen;
+  }
+
+
+  public CourseUpdate breakDistance(Integer breakDistance) {
+    
+    this.breakDistance = breakDistance;
+    return this;
+  }
+
+   /**
+   * Get breakDistance
+   * @return breakDistance
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getBreakDistance() {
+    return breakDistance;
+  }
+
+
+  public void setBreakDistance(Integer breakDistance) {
+    this.breakDistance = breakDistance;
+  }
+
+
+  public CourseUpdate bottomBuoy(Integer bottomBuoy) {
+    
+    this.bottomBuoy = bottomBuoy;
+    return this;
+  }
+
+   /**
+   * Get bottomBuoy
+   * @return bottomBuoy
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getBottomBuoy() {
+    return bottomBuoy;
+  }
+
+
+  public void setBottomBuoy(Integer bottomBuoy) {
+    this.bottomBuoy = bottomBuoy;
+  }
+
+
+  public CourseUpdate gate(Boolean gate) {
+    
+    this.gate = gate;
+    return this;
+  }
+
+   /**
+   * Get gate
+   * @return gate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getGate() {
+    return gate;
+  }
+
+
+  public void setGate(Boolean gate) {
+    this.gate = gate;
+  }
+
+
+  public CourseUpdate secondMarkDistance(Integer secondMarkDistance) {
+    
+    this.secondMarkDistance = secondMarkDistance;
+    return this;
+  }
+
+   /**
+   * Get secondMarkDistance
+   * @return secondMarkDistance
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getSecondMarkDistance() {
+    return secondMarkDistance;
+  }
+
+
+  public void setSecondMarkDistance(Integer secondMarkDistance) {
+    this.secondMarkDistance = secondMarkDistance;
+  }
+
+
+  public CourseUpdate jury(JuryUpdate jury) {
     
     this.jury = jury;
     return this;
@@ -110,12 +273,12 @@ public class CourseUpdate {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public BuoyUpdate getJury() {
+  public JuryUpdate getJury() {
     return jury;
   }
 
 
-  public void setJury(BuoyUpdate jury) {
+  public void setJury(JuryUpdate jury) {
     this.jury = jury;
   }
 
@@ -159,13 +322,19 @@ public class CourseUpdate {
     CourseUpdate courseUpdate = (CourseUpdate) o;
     return Objects.equals(this.name, courseUpdate.name) &&
         Objects.equals(this.type, courseUpdate.type) &&
+        Objects.equals(this.compassDegrees, courseUpdate.compassDegrees) &&
+        Objects.equals(this.startLineLen, courseUpdate.startLineLen) &&
+        Objects.equals(this.breakDistance, courseUpdate.breakDistance) &&
+        Objects.equals(this.bottomBuoy, courseUpdate.bottomBuoy) &&
+        Objects.equals(this.gate, courseUpdate.gate) &&
+        Objects.equals(this.secondMarkDistance, courseUpdate.secondMarkDistance) &&
         Objects.equals(this.jury, courseUpdate.jury) &&
         Objects.equals(this.buoys, courseUpdate.buoys);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, type, jury, buoys);
+    return Objects.hash(name, type, compassDegrees, startLineLen, breakDistance, bottomBuoy, gate, secondMarkDistance, jury, buoys);
   }
 
   @Override
@@ -174,6 +343,12 @@ public class CourseUpdate {
     sb.append("class CourseUpdate {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    compassDegrees: ").append(toIndentedString(compassDegrees)).append("\n");
+    sb.append("    startLineLen: ").append(toIndentedString(startLineLen)).append("\n");
+    sb.append("    breakDistance: ").append(toIndentedString(breakDistance)).append("\n");
+    sb.append("    bottomBuoy: ").append(toIndentedString(bottomBuoy)).append("\n");
+    sb.append("    gate: ").append(toIndentedString(gate)).append("\n");
+    sb.append("    secondMarkDistance: ").append(toIndentedString(secondMarkDistance)).append("\n");
     sb.append("    jury: ").append(toIndentedString(jury)).append("\n");
     sb.append("    buoys: ").append(toIndentedString(buoys)).append("\n");
     sb.append("}");
