@@ -40,7 +40,6 @@ class CourseBase(SQLModel):
     name: str = Field(primary_key=True)
     creation_date: int
     type: str
-    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
 
 # ====================
 # database models. It's not recomended to
@@ -55,6 +54,7 @@ class Roboa(RoboaBase, table=True):
 
 
 class Course(CourseBase, table=True):
+    jury_id: Optional[str] = Field(default=None, foreign_key="buoyjury.id")
     jury: Optional["BuoyJury"] = Relationship()
     buoys: List["Buoy"] = Relationship()
 
