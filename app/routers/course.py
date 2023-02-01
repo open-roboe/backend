@@ -13,7 +13,7 @@ from ..models import database, api  # same as "from app.models import database"
 router = APIRouter(prefix='/api/course', tags=['course'])
 
 
-@router.get("/", response_model=List[api.CourseResponse])
+@router.get("/", response_model=List[api.ApiCourse])
 async def get_all_courses(*, user=Depends(get_current_user), session=Depends(get_session)):
     """
     get all courses
@@ -21,8 +21,8 @@ async def get_all_courses(*, user=Depends(get_current_user), session=Depends(get
     return session.exec(select(database.Course)).all()
 
 
-@router.post("/", response_model=api.CourseResponse)
-async def add_course(course_create: api.CourseCreate,
+@router.post("/", response_model=api.ApiCourse)
+async def add_course(course_create: api.ApiCourse,
                      admin_user=Depends(get_current_admin_user),
                      session=Depends(get_session)
                      ):
@@ -39,7 +39,7 @@ async def add_course(course_create: api.CourseCreate,
     for key, value in course_create_dict.items():
         # NOTE: this 'merge blocklist' is dangerous: since the keys are hardcoded in a string they will not
         # be detected by the linter if the class attributes are changed in the future
-        if key not in ['jury', 'buoys']:
+        if key not in ['jury', 'buoys', 'creation_date']:
             setattr(course, key, value)
     # create the jury
     jury_id = str(uuid.uuid4())
@@ -68,9 +68,9 @@ async def add_course(course_create: api.CourseCreate,
     return course
 
 
-@router.put("/", response_model=api.CourseResponse)
+@router.put("/", response_model=api.ApiCourse)
 async def update_course(
-        course_update: api.CourseUpdate,
+        course_update: api.ApiCourse,
         admin_user=Depends(get_current_admin_user),
         session = Depends(get_session)
 ):

@@ -9,9 +9,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
-import com.example.roboapp2.api.definition.model.CourseCreate;
-import com.example.roboapp2.api.definition.model.CourseResponse;
-import com.example.roboapp2.api.definition.model.CourseUpdate;
+import com.example.roboapp2.api.definition.model.ApiCourse;
 import com.example.roboapp2.api.definition.model.HTTPValidationError;
 import com.example.roboapp2.api.definition.model.RoboaGet;
 
@@ -24,15 +22,15 @@ public interface CourseApi {
   /**
    * Add Course
    * Add a course, with its jury and buoys.  Courses are the same thing as Regattas. It&#39;s just a synonym
-   * @param courseCreate  (required)
-   * @return Call&lt;CourseResponse&gt;
+   * @param apiCourse  (required)
+   * @return Call&lt;ApiCourse&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
   @POST("api/course/")
-  Call<CourseResponse> addCourseApiCoursePost(
-    @retrofit2.http.Body CourseCreate courseCreate
+  Call<ApiCourse> addCourseApiCoursePost(
+    @retrofit2.http.Body ApiCourse apiCourse
   );
 
   /**
@@ -54,10 +52,10 @@ public interface CourseApi {
   /**
    * Get All Courses
    * get all courses
-   * @return Call&lt;List&lt;CourseResponse&gt;&gt;
+   * @return Call&lt;List&lt;ApiCourse&gt;&gt;
    */
   @GET("api/course/")
-  Call<List<CourseResponse>> getAllCoursesApiCourseGet();
+  Call<List<ApiCourse>> getAllCoursesApiCourseGet();
     
 
   /**
@@ -74,15 +72,15 @@ public interface CourseApi {
   /**
    * Update Course
    * update a course  note: course.name, jury.id and buoy.id are identifiers and cannot be changed
-   * @param courseUpdate  (required)
-   * @return Call&lt;CourseResponse&gt;
+   * @param apiCourse  (required)
+   * @return Call&lt;ApiCourse&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
   @PUT("api/course/")
-  Call<CourseResponse> updateCourseApiCoursePut(
-    @retrofit2.http.Body CourseUpdate courseUpdate
+  Call<ApiCourse> updateCourseApiCoursePut(
+    @retrofit2.http.Body ApiCourse apiCourse
   );
 
 }
