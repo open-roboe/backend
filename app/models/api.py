@@ -40,72 +40,36 @@ class RoboaGet(BaseModel):
 # ====================
 # Jury
 
-class JuryCreate(BaseModel):
-    description: Optional[str]
-    color: Optional[int]
-    lat: float
-    lon: float
-
-
-class JuryUpdate(BaseModel):
+class ApiJury(BaseModel):
     description: Optional[str]
     color: Optional[int]
     lat: Optional[float]
     lon: Optional[float]
-
-class JuryResponse(BaseModel):
-    description: Optional[str] = ""
-    color: Optional[int] = 0
-    lat: float
-    lon: float
 
 # ====================
 # Buoy
 
-class BuoyCreate(BaseModel):
-    id: int
-    description: Optional[str]
-    color: Optional[int]
-    lat: float
-    lon: float
-
-
-class BuoyUpdate(BaseModel):
+class ApiBuoy(BaseModel):
     id: int
     description: Optional[str]
     color: Optional[int]
     lat: Optional[float]
     lon: Optional[float]
 
-class BuoyResponse(database.BuoyBase):
-    pass
-
 # ====================
 # Course
 
-class CourseCreate(database.CourseBase):
-    jury: JuryCreate
-    buoys: List[BuoyCreate]
-
-
-class CourseUpdate(database.CourseBase):
-    name: str
-    type: Optional[str]
-    jury: JuryUpdate
-    buoys: List[BuoyUpdate]
-
-class CourseResponse(database.CourseBase):
-    creation_date: int
+class ApiCourse(database.CourseBase):
+    creation_date: Optional[int]
     #these are not database fields!
-    jury: JuryResponse
-    buoys: List[database.Buoy]
-
+    jury: ApiJury
+    buoys: List[ApiBuoy]
 
 # ====================
 # polling
 
 class PollResponse(BaseModel):
-    courses: List[CourseResponse]
+    courses: List[ApiCourse]
     users: List[UserResponse]
     roboas: List[RoboaResponse]
 
