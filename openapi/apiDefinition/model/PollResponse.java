@@ -15,7 +15,7 @@ package com.example.roboapp2.api.definition.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.example.roboapp2.api.definition.model.CourseResponse;
+import com.example.roboapp2.api.definition.model.ApiCourse;
 import com.example.roboapp2.api.definition.model.RoboaResponse;
 import com.example.roboapp2.api.definition.model.UserResponse;
 import com.google.gson.TypeAdapter;
@@ -32,11 +32,11 @@ import java.util.List;
 /**
  * PollResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-31T17:04:24.839244Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-02-01T12:43:47.640619Z[Etc/UTC]")
 public class PollResponse {
   public static final String SERIALIZED_NAME_COURSES = "courses";
   @SerializedName(SERIALIZED_NAME_COURSES)
-  private List<CourseResponse> courses = new ArrayList<>();
+  private List<ApiCourse> courses = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_USERS = "users";
   @SerializedName(SERIALIZED_NAME_USERS)
@@ -49,13 +49,13 @@ public class PollResponse {
   public PollResponse() {
   }
 
-  public PollResponse courses(List<CourseResponse> courses) {
+  public PollResponse courses(List<ApiCourse> courses) {
     
     this.courses = courses;
     return this;
   }
 
-  public PollResponse addCoursesItem(CourseResponse coursesItem) {
+  public PollResponse addCoursesItem(ApiCourse coursesItem) {
     this.courses.add(coursesItem);
     return this;
   }
@@ -67,12 +67,12 @@ public class PollResponse {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public List<CourseResponse> getCourses() {
+  public List<ApiCourse> getCourses() {
     return courses;
   }
 
 
-  public void setCourses(List<CourseResponse> courses) {
+  public void setCourses(List<ApiCourse> courses) {
     this.courses = courses;
   }
 

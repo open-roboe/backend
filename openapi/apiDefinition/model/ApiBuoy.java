@@ -26,10 +26,22 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
- * PollUserUpdate
+ * ApiBuoy
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-02-01T12:43:47.640619Z[Etc/UTC]")
-public class PollUserUpdate {
+public class ApiBuoy {
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
+  private Integer id;
+
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
+
+  public static final String SERIALIZED_NAME_COLOR = "color";
+  @SerializedName(SERIALIZED_NAME_COLOR)
+  private Integer color;
+
   public static final String SERIALIZED_NAME_LAT = "lat";
   @SerializedName(SERIALIZED_NAME_LAT)
   private BigDecimal lat;
@@ -38,10 +50,79 @@ public class PollUserUpdate {
   @SerializedName(SERIALIZED_NAME_LON)
   private BigDecimal lon;
 
-  public PollUserUpdate() {
+  public ApiBuoy() {
   }
 
-  public PollUserUpdate lat(BigDecimal lat) {
+  public ApiBuoy id(Integer id) {
+    
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+
+  public Integer getId() {
+    return id;
+  }
+
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+
+  public ApiBuoy description(String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
+  public ApiBuoy color(Integer color) {
+    
+    this.color = color;
+    return this;
+  }
+
+   /**
+   * Get color
+   * @return color
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getColor() {
+    return color;
+  }
+
+
+  public void setColor(Integer color) {
+    this.color = color;
+  }
+
+
+  public ApiBuoy lat(BigDecimal lat) {
     
     this.lat = lat;
     return this;
@@ -51,8 +132,8 @@ public class PollUserUpdate {
    * Get lat
    * @return lat
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public BigDecimal getLat() {
     return lat;
@@ -64,7 +145,7 @@ public class PollUserUpdate {
   }
 
 
-  public PollUserUpdate lon(BigDecimal lon) {
+  public ApiBuoy lon(BigDecimal lon) {
     
     this.lon = lon;
     return this;
@@ -74,8 +155,8 @@ public class PollUserUpdate {
    * Get lon
    * @return lon
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public BigDecimal getLon() {
     return lon;
@@ -95,20 +176,26 @@ public class PollUserUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PollUserUpdate pollUserUpdate = (PollUserUpdate) o;
-    return Objects.equals(this.lat, pollUserUpdate.lat) &&
-        Objects.equals(this.lon, pollUserUpdate.lon);
+    ApiBuoy apiBuoy = (ApiBuoy) o;
+    return Objects.equals(this.id, apiBuoy.id) &&
+        Objects.equals(this.description, apiBuoy.description) &&
+        Objects.equals(this.color, apiBuoy.color) &&
+        Objects.equals(this.lat, apiBuoy.lat) &&
+        Objects.equals(this.lon, apiBuoy.lon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lat, lon);
+    return Objects.hash(id, description, color, lat, lon);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PollUserUpdate {\n");
+    sb.append("class ApiBuoy {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
     sb.append("    lat: ").append(toIndentedString(lat)).append("\n");
     sb.append("    lon: ").append(toIndentedString(lon)).append("\n");
     sb.append("}");
