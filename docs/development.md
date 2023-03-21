@@ -14,4 +14,4 @@ Check out one of the following guides to get started
 
 If you are interested in the android app development, check out the dedicated repository:
 
-https://github.com/open-roboe/roboapp-android
+https://github.com/open-roboe/roboapp
